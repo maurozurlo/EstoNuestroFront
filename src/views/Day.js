@@ -1,12 +1,15 @@
-import React, {useState} from 'react' 
+import React, {useContext} from 'react'
 import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components'
 //Components
 import Row from '../components/calendar/Row'
 //Assets 
-import arrow from '../icons/arrow.svg'
-
-import {getYesterday, getTomorrow, getFormattedDate} from '../helpers/date'
+import Arrow from '../icons/Arrow'
+//Helpers
+import { getYesterday, getTomorrow, getFormattedDate } from '../helpers/date'
+import { getHex } from '../helpers/colors'
+//Context
+import {CalendarContext} from '../CalendarContext'
 
 const Wrapper = styled.div`
 background: rgba(255,255,255,0.3);
@@ -33,88 +36,74 @@ align-items: center;
 font-weight: bold;
 padding: 5px 0;
 
+p{
+  color: var(--text-dark);
+}
+
 a{
   display: inline-block;
-    width: 35px;
-    line-height: 0;
-}
-
-a:first-of-type{
-  transform: scaleX(-1);
-}
-`
-
-const slots = [
-  {time: '17', hex:'ED894E'},
-  {time: '18', hex:'EB844B'},
-  {time: '19', hex:'EA8048'},
-  {time: '20', hex:'E77843'},
-  {time: '21', hex:'E4703D'},
-  {time: '22', hex:'E26838'},
-  {time: '23', hex:'E06335'},
-  {time: '0', hex:'DF5F32'},
-  {time: '1', hex:'DD572D'},
-  {time: '2', hex:'D84722'}
-]
-
-const list = {
-  '29-04-2020':{
-    17: 'belu.piccoli',
-    18: 'leia_oriana',
-    20: 'kiefa',
-    21: 'santile.n',
-    22: 'pachaysuimaginario',
-    23: 'textotendido',
-    0: 'matias.va.con.tilde'
-  },
-  '30-04-2020': {
-    17: 'sol.morgante',
-    18: 'valentinaliff',
-    19: 'deboh.ingenia',
-    20: 'flordelsur.cl',
-    21: 'ema_sementa87',
-    22: 'mateo.zucco',
-    23: 'musicamistica'
+  width: 35px;
+  line-height: 0;
+  &:first-of-type{
+    transform: scaleX(-1);
+  }
+  &>svg{
+    fill: var(--icon);
+    :hover{
+      fill: var(--hover-icon);
+    }
   }
 }
+`
+//Horas a las que se pueden anotar
+const slots = [17, 18, 19, 20, 21, 22, 23, 0, 1, 2];
+//Extreme colors
+const colors = ['#30769C', '#48A8DB']
 
 const Day = (props) => {
   const { date } = useParams()
-  const [selectedTime, setSelectedTime] = useState(null);
+  const { setValue } = useContext(CalendarContext);
 
   const handleTime = (val) => {
-    setSelectedTime(val); //Save selectedTimeInComponent
-    props.setParentTime(val) //Set selectedTime for Modal;
+    setValue({
+      selectedDay: date,
+      niceDay: getFormattedDate(date),
+      selectedTime: val,
+      user: ''
+    });
+    //Open modal
+    props.triggerModal();
+    //props.setParentTime(val, getFormattedDate(date)) //Set selectedTime for Modal;
   }
 
-  const returnUser = (hour) =>{
-    return list[date] ? list[date][hour] : null
+  const returnUser = (hour) => {
+    return props.list[date] ? props.list[date][hour] : null
   }
-  
+
   return (
     <>
-    <SubHeader>
-          <Link to={`${getYesterday(date)}`}>
-              <img src={arrow} alt="" />
-          </Link>
-          
-          <p>{getFormattedDate(date)}</p>
-          
-          <Link to={`${getTomorrow(date)}`}>
-              <img src={arrow} alt=""/>
-          </Link>
-        </SubHeader>
-    <Wrapper>
-    {slots.map((element,i) => 
-        <Row 
-        key={i}
-        hour={element.time}
-        bg={element.hex}
-        handleClick={handleTime}
-        user={returnUser(element.time)}
-        />
-      )}
-    </Wrapper>
+      <SubHeader>
+        <Link to={`${getYesterday(date)}`}>
+          <Arrow />
+        </Link>
+
+        <p>{getFormattedDate(date)}</p>
+
+        <Link to={`${getTomorrow(date)}`}>
+          <Arrow />
+        </Link>
+      </SubHeader>
+      <Wrapper>
+        {slots.map((element, i) =>
+          <Row
+            key={i}
+            hour={element}
+            bg={getHex(colors[0], colors[1], i)}
+            handleClick={handleTime}
+            user={returnUser(element)}
+          />
+        )}
+      </Wrapper>
     </>
   )
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -13,17 +13,17 @@ min-width: 55px;
 font-weight: bold;
 text-align: center;
 text-transform: uppercase;
-color: #331606;
+color: var(--text-dark);
 `
 
 const Slot = styled.div`
 width: 100%;
 font-weight: 600;
 text-align: center;
-background-color: #77FFC0;
-border: 2px solid #77FFC0;
+background-color: var(--slot-background);
+border: 2px solid var(--slot-background);
 padding: 13px 0;
-color: #107A4B;
+color: var(--slot-text);
 border-radius: 5px;
 cursor: pointer;
 box-sizing: border-box;
@@ -31,7 +31,7 @@ transition: .15s ease all;
 
 :hover{
   filter: contrast(1.5);
-  border: 2px solid #44bd86;
+  border: 2px solid var(--slot-text);
 }
 `
 
@@ -42,20 +42,13 @@ const SelectedSlot = styled(Slot)`
 `
 
 const Row = (props) => {
-  const [taken, setTakenState] = useState(false)
-
-  /* const handleClick = () => {
-    setTakenState(!taken)
-    console.log(props.bg);
-  } */
-
   return (
     
     <Wrapper>
       <Hour onClick={() => console.log(props.user)}>{props.hour}hs</Hour>
       {props.user ? 
       <SelectedSlot bg={props.bg}>{`@${props.user}`}</SelectedSlot> : 
-      <Slot onClick={() => props.handleClick(props.hour)}>Anotate en este espacio!</Slot>}
+      <Slot onClick={() => props.handleClick(props.hour)}>¡Anotate en este espacio!</Slot>}
     </Wrapper>
 
   )

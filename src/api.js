@@ -1,21 +1,23 @@
 //Setting Mock Data for first time access
-if (!localStorage.getItem('estoNuestro')) {
-  const todaysList =
-  {
-    '20200410':
-      {
-        17: 'elmiauro',
-        18: 'lucreseoane',
-        19: 'nicocane93',
-        20: 'falopitaelpayaso',
-        21: 'dukissj',
-        22: 'romicampi',
-        0: 'elculodetinelli',
-        1: 'celacosari'
-      }
+export const userList = {
+  '29-04-2020':{
+    17: 'belu.piccoli',
+    18: 'leia_oriana',
+    20: 'kiefa',
+    21: 'santile.n',
+    22: 'pachaysuimaginario',
+    23: 'textotendido',
+    0: 'matias.va.con.tilde'
+  },
+  '30-04-2020': {
+    17: 'sol.morgante',
+    18: 'valentinaliff',
+    19: 'deboh.ingenia',
+    20: 'flordelsur.cl',
+    21: 'ema_sementa87',
+    22: 'mateo.zucco',
+    23: 'musicamistica'
   }
-
-  localStorage.setItem('estoNuestro', JSON.stringify(todaysList))
 }
 
 export const getAllListItems = () => new Promise(
@@ -59,6 +61,7 @@ export const deleteItemFromList = (id) => new Promise(
 )
 
 export default {
+  userList,
   getAllListItems,
   deleteItemFromList,
   addItemToList

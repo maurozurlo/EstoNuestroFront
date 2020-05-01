@@ -1,114 +1,74 @@
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React from 'react'
+//Assets
+import close from '../icons/close.svg'
 
 const ModalContainer = styled.div`
   z-index: 999;
+  background: rgba(0, 0, 0, 0.65);
   position: absolute;
+  top: 0;
+  left: 0;
   min-width: 100%;
   min-height:100%;
-  background: rgba(0, 0, 0, 0.65);
   display: flex;
-  justify-content: center;`
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation-name: fadeIn;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  `
 
 const ModalCard = styled.div`
+  bottom: 0;
   z-index: 9999;
-  background: #FFDF8C;
-  margin-top: 20vh;
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 225px;
-  padding: 0 24px;
-  border-radius: 10px;
-  box-shadow: 0px 1px 5px 0px #e0e0e0;
-
-  & h2{
-    text-align: center;
-    color: #2A0D08;
-  }
-
-  & input{
-      border: 1px solid #F65D33;
-      background: #FBFBFB;
-      min-height: 40px;
-      border-radius: 5px;
-      margin-bottom: 24px;
-      padding-left: 10px;
-      font-size: 14px;
-    }
+  background: white;
+  width: 90vw;
+  max-width: 350px;
+  padding: 0 .8em;
+  border-radius: 2px;
 `
 
-const ButtonContainer = styled.div`
+const ModalHeader = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-`
+  align-items: center;
+  width:100%;
 
-const Button = styled.button`
+  h2{
+    text-align: center;
     font-weight: 600;
-    border-radius: .3em;
-    font-size: 16px;
-    min-width: 90px;
-    padding: 10px 0;
-`
-
-const ButtonPrimary = styled(Button)`
-  background-color: #F87855;
-    border: #F65D33;
-    color: white;
-    :hover{
-      filter: contrast(1.5);
-      cursor: pointer;
-    }
-    :disabled,
-  [disabled]{
-    border: 1px solid #939393;
-    background-color:#f5f5f5;
-    color: #939393;
+    color: var(--text-dark);
+    font-size: 1.1em;
+  }
+  img{
+    width: 35px;
+    background: var(--text-light);
+    height: 35px;
+    padding: .5em;
+    border-radius: 100%;
   }
 `
 
-const ButtonOutline = styled(Button)`
-    border: 1px solid #ED894E;
-    background-color: #FFC384;
-    :hover{
-      cursor: pointer;
-      background: #F0A556;
-    }
+const ModalContent = styled.div`
+padding-bottom: 20px;
 `
-
-
 
 const Modal = (props) => {
-  //Enable/disable button
-  const [disabled, setDisabledState] = useState(true)
-  const enableButton = () => setDisabledState(false)
-  const disableButton = () => setDisabledState(true)
-  //Input
-  const handleInput = (e) => {
-    setItemState(e.target.value)
-    if (e.target.value !== '') {
-      enableButton()
-    } else {
-      disableButton()
-    }
-  }
-  const [itemValue, setItemState] = useState('')
-
   return (
     <ModalContainer>
       <ModalCard>
-        <h2>Anotarte el {props.day} a las {props.time}hs</h2>
-        <input
-        type="text"
-        value={itemValue} 
-        placeholder="Tu usuario de Instagram!..."
-        onChange={handleInput}
-        autoFocus/>
-        <ButtonContainer>
-          <ButtonOutline onClick={props.close} >Cancelar</ButtonOutline>
-          <ButtonPrimary disabled={disabled} onClick={() => props.addItemToList(itemValue)}>Agregar</ButtonPrimary>
-        </ButtonContainer>
+        <ModalHeader>
+          <h2>{props.title}</h2>
+          <img src={close} alt="" onClick={props.close} />
+        </ModalHeader>
+        <ModalContent>
+          {props.content}
+        </ModalContent>
       </ModalCard>
     </ModalContainer>
   )

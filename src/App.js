@@ -1,5 +1,5 @@
 //Core
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
   BrowserRouter as Router,
   Redirect,
@@ -11,11 +11,16 @@ import {
 import styled from 'styled-components'
 //Components
 import Day from './views/Day'
+//Context
+import { CalendarContext } from './CalendarContext'
+
+//Modal
 import Modal from './components/Modal'
+import SignUp from './components/modal/SignUp'
 //Assets
 import logo from './assets/logo.svg'
 //API
-import { getAllListItems, addItemToList, deleteItemFromList } from './api'
+import { userList } from './api'
 import { getToday } from './helpers/date'
 
 const Container = styled.div`
@@ -37,54 +42,23 @@ const App = () => {
   //Modal
   const [modalState, setModalState] = useState(false)
   const changeModalState = () => setModalState(!modalState);
-  const [selectedDay, setSelectedDay] = useState('Lunes 13 de Abril');
-  const [selectedTime, setSelectedTime] = useState(null);
 
+  const [value, setValue] = useState({
+    selectedDay: '',
+    niceDay: '',
+    selectedTime: '',
+    user: ''
+  });
 
-
-  const getSelectedTime = (time) => {
-    setSelectedTime(time);
-    changeModalState();
-    console.log(getAllListItems());
-  }
+  const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
 
   //Add item
   async function addItem(value) {
     changeModalState();
-    console.log(value);
-    /* try{
-      await addItemToList(value)
-      .then(fetchData())
-    } catch(err){
-      console.log(err)
-    } */
   }
-
-  //List handling
-  const [list, setList] = useState([]);
-  //Get all data
-  async function fetchData() {
-    try {
-      const res = await getAllListItems()
-      setList(res)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  //Initialize list
-  useEffect(() => {
-    fetchData()
-  }, [])
 
   return (
     <Router>
-      {modalState ?
-        <Modal close={changeModalState}
-          day={selectedDay}
-          time={selectedTime}
-          addItemToList={addItem}
-        ></Modal> : null}
       <Container>
         <Header>
           <Link to="/"><Logo src={logo} alt="logo" /></Link>
@@ -95,10 +69,16 @@ const App = () => {
             <Redirect to={`${getToday()}`} />
           )} />
           <Route path="/:date">
-            <Day setParentTime={getSelectedTime}/>
-          </Route>
-          <Route path="/users">
-            <p>USERS PAGE</p>
+            <CalendarContext.Provider value={providerValue}>
+              {modalState ?
+                <Modal
+                  title='Anotarte'
+                  close={changeModalState}
+                  addItemToList={addItem}
+                  content={<SignUp close={changeModalState}/>}
+                ></Modal> : null}
+              <Day list={userList} triggerModal={changeModalState}/>
+            </CalendarContext.Provider>
           </Route>
         </Switch>
       </Container>
