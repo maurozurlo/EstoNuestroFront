@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
+//Context
+import { CalendarContext } from '../../CalendarContext'
 
 const Description = styled.p`
   color: var(--text-dark);
@@ -52,12 +54,12 @@ const Wrapper = styled.div`
 `
 
 const Confirmation1 = (props) => {
+  const { value } = useContext(CalendarContext);
 
   return (
     <Wrapper>
       <Description>
-        <a href='https://instagram.com/elmiauro'>@elmiauro</a>
-         está anotado el lunes 3/4 a las 17hs.<br />
+        <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
         Por favor <strong>guardá tu pin</strong>:</Description>
       <PinHolder>1234</PinHolder>
       <Description>Guardar el pin te sirve en caso de que quieras editar esta info.</Description>

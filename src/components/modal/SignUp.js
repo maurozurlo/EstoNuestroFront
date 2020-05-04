@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 //Components
 import ButtonContainer from './ButtonContainer'
@@ -15,39 +15,54 @@ const Input = styled.input`
   background: var(--input-background);
   min-height: 40px;
   border-radius: var(--border-radius);
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   padding-left: 10px;
   font-size: 14px;
-  width: 100%;
-  
+  width: 100%; 
+`
+
+const ErrorMsg = styled.p`
+color: var(--error-message);
+font-size: 12px;
+font-weight: bold;
+margin: 0;
+  padding: 0px 5px;
+  padding-bottom: 10px;
+  text-align: center;
 `
 
 const SignUp = (props) => {
-  const { value } = useContext(CalendarContext);
-  //Enable/disable button
-  const [disabled, setDisabledState] = useState(true)
+  const { value, setValue } = useContext(CalendarContext);
   //Input
   const handleInput = (e) => {
     setUsername(e.target.value)
-    e.target.value !== '' ? setDisabledState(false) : setDisabledState(true);
+    setValue({ ...value, ...{ 'user': e.target.value } });
   }
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(value.user)
+  const [error, setError] = useState('')
 
+  const checkUsernameLength = () => {
+    if (username === undefined || username.length < 3) {
+      setError('El nombre de usuario debe tener mínimo 3 letras.');
+    } else {
+      props.action(['Felicidades', 1]);
+    }
+  }
   return (
     <>
-      <Description>Por favor ingresá tu usuario de Instagram para anotarte el {value.niceDay} a las {value.selectedTime}hs</Description>
+      <Description>Por favor ingresá tu usuario de Instagram para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>
       <Input
         type="text"
         value={username}
         placeholder="Tu usuario de Instagram!..."
         onChange={handleInput}
         autoFocus />
+      <ErrorMsg>{error}</ErrorMsg>
       <ButtonContainer
-      action={() => props.action(['Felicidades',1])}
-      close={props.close}
-      buttonState={disabled}
-       />
+        action={() => checkUsernameLength()}
+        close={props.close}
+      />
     </>
   )
 }

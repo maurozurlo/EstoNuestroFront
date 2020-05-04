@@ -47,7 +47,8 @@ const App = () => {
     selectedDay: '',
     niceDay: '',
     selectedTime: '',
-    user: ''
+    user: 'elmiauro',
+    pin: '0000'
   });
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);

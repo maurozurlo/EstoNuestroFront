@@ -68,8 +68,7 @@ const Day = (props) => {
     setValue({
       selectedDay: date,
       niceDay: getFormattedDate(date),
-      selectedTime: val,
-      user: ''
+      selectedTime: val
     });
     //Open modal
     props.triggerModal();
