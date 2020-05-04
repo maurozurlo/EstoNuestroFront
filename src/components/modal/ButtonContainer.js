@@ -44,7 +44,7 @@ const ButtonContainer = (props) => {
   return (
     <Wrapper>
       <ButtonOutline onClick={props.close} >Cancelar</ButtonOutline>
-      <ButtonPrimary disabled={props.disabled} onClick={() => console.log('here')}>Agregar</ButtonPrimary>
+      <ButtonPrimary disabled={props.disabled} onClick={props.action}>Agregar</ButtonPrimary>
     </Wrapper>
   )
 }

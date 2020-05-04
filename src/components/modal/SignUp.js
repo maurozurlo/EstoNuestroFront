@@ -44,6 +44,7 @@ const SignUp = (props) => {
         onChange={handleInput}
         autoFocus />
       <ButtonContainer
+      action={() => props.action(['Felicidades',1])}
       close={props.close}
       buttonState={disabled}
        />

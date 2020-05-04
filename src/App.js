@@ -16,7 +16,7 @@ import { CalendarContext } from './CalendarContext'
 
 //Modal
 import Modal from './components/Modal'
-import SignUp from './components/modal/SignUp'
+
 //Assets
 import logo from './assets/logo.svg'
 //API
@@ -75,7 +75,7 @@ const App = () => {
                   title='Anotarte'
                   close={changeModalState}
                   addItemToList={addItem}
-                  content={<SignUp close={changeModalState}/>}
+                  content='0'
                 ></Modal> : null}
               <Day list={userList} triggerModal={changeModalState}/>
             </CalendarContext.Provider>

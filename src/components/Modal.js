@@ -1,7 +1,12 @@
 import styled from 'styled-components'
-import React from 'react'
+import React, {useState} from 'react'
 //Assets
 import close from '../icons/close.svg'
+//Components
+//Modal content
+import SignUp from './modal/SignUp'
+import Confirmation1 from './modal/Confirmation-1'
+import Confirmation2 from './modal/Confirmation-2'
 
 const ModalContainer = styled.div`
   z-index: 999;
@@ -59,15 +64,30 @@ padding-bottom: 20px;
 `
 
 const Modal = (props) => {
+  const [content, setContent] = useState([props.title, props.content]);
+  const setModalContent = (title, val) => setContent(title, val);
+
+  const RenderContent = () =>{
+    const i = parseInt(content[1]);
+    if(i === 0)
+    return (<SignUp close={props.close} action={setModalContent}/>);
+    if(i === 1)
+    return (<Confirmation1 close={props.close} action={setModalContent}/>);
+    if(i === 2)
+    return (<Confirmation2 close={props.close}/>);
+    return null;
+  }
+
+
   return (
     <ModalContainer>
       <ModalCard>
         <ModalHeader>
-          <h2>{props.title}</h2>
+          <h2>{content[0]}</h2>
           <img src={close} alt="" onClick={props.close} />
         </ModalHeader>
         <ModalContent>
-          {props.content}
+          {<RenderContent />}
         </ModalContent>
       </ModalCard>
     </ModalContainer>
