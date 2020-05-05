@@ -22,10 +22,10 @@ const Input = styled.input`
 `
 
 const ErrorMsg = styled.p`
-color: var(--error-message);
-font-size: 12px;
-font-weight: bold;
-margin: 0;
+  color: var(--error-message);
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
   padding: 0px 5px;
   padding-bottom: 10px;
   text-align: center;
@@ -35,8 +35,9 @@ const SignUp = (props) => {
   const { value, setValue } = useContext(CalendarContext);
   //Input
   const handleInput = (e) => {
-    setUsername(e.target.value)
-    setValue({ ...value, ...{ 'user': e.target.value } });
+    const cleanString = e.target.value.replace(/[^a-zA-Z0-9]/g, "")
+    setUsername(cleanString)
+    setValue({ ...value, ...{ 'user': cleanString } });
   }
 
   const [username, setUsername] = useState(value.user)
@@ -46,9 +47,10 @@ const SignUp = (props) => {
     if (username === undefined || username.length < 3) {
       setError('El nombre de usuario debe tener mínimo 3 letras.');
     } else {
-      props.action(['Felicidades', 1]);
+      props.action(['Anotarte', 1]);
     }
   }
+
   return (
     <>
       <Description>Por favor ingresá tu usuario de Instagram para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>

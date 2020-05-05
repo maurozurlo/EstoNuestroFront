@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components'
 //Components
 import Row from '../components/calendar/Row'
+import Spinner from '../components/atoms/Spinner'
 //Assets 
 import Arrow from '../icons/Arrow'
 //Helpers
@@ -86,21 +87,22 @@ const Day = (props) => {
   //Api Fetch
   useEffect(() => {
     setDayFetching(true);
-    
+
     getDate(date)
-    .then(res => {
-      setDayFetching(false);
-      
-      if(res) {
-        setDayFound(true);
-        setDay(res);
-      } else {
+      .then(res => {
+        setDayFetching(false);
+
+        if (res) {
+          setDayFound(true);
+          setDay(res);
+        } else {
+          setDayFound(false)
+        }
+      })
+      .catch(error => {
         setDayFound(false)
       }
-    })
-    .catch(
-      setDayFound(false)
-    )
+      )
   }, [date]);
 
   const returnUser = (hour) => {
@@ -123,7 +125,7 @@ const Day = (props) => {
       <Wrapper>
 
         {dayFetching && (
-          <p>Buscando datos...</p>
+          <Spinner />
         )}
         {!dayFetching && dayFound &&
           slots.map((element, i) =>

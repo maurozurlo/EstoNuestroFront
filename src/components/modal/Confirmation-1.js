@@ -1,7 +1,10 @@
-import React, {useContext} from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
+import Spinner from '../atoms/Spinner'
 //Context
 import { CalendarContext } from '../../CalendarContext'
+// API
+const { addUser } = require('../handlers/api');
 
 const Description = styled.p`
   color: var(--text-dark);
@@ -53,17 +56,84 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 
+const ErrorMsg = styled.p`
+  color: var(--error-message);
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0px 5px;
+  padding-bottom: 10px;
+  text-align: center;
+`
+
 const Confirmation1 = (props) => {
   const { value } = useContext(CalendarContext);
+  //Request sample
+  /* {
+"permalink": "01-05-2020",
+"date": "01-05-2020",
+"time": "17",
+"username": "elmiauro",
+"pin": "1234"
+} */
+
+  const [pinFound, setPinFound] = useState(false);
+  const [pinFetching, setPinFetching] = useState(true);
+  const [pin, setPin] = useState('')
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const reqBody = {
+      permalink: value.selectedDay,
+      date: value.selectedDay,
+      time: value.selectedTime,
+      username: value.user,
+      pin: value.pin
+    }
+
+    if (!pinFound) {
+      setPinFetching(true);
+
+      addUser(reqBody)
+        .then(res => {
+          setPinFetching(false);
+
+          if (res.status === 200) {
+            setPinFound(true);
+            setPin(res.data.msg);
+            setMessage('No errors');
+          }
+          else {
+            setPin('');
+            setMessage(res);
+            setPinFound(false)
+          }
+        })
+    }
+    //console.log('pin:', pin);
+  }, [pin, message, value.pin, value.selectedDay, value.selectedTime, value.user, pinFound]);
+
 
   return (
     <Wrapper>
-      <Description>
-        <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
+      {pinFetching && (
+        <Spinner />
+      )}
+      {!pinFetching && pinFound &&
+        <>
+          <Description>
+            <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
         Por favor <strong>guardá tu pin</strong>:</Description>
-      <PinHolder>1234</PinHolder>
-      <Description>Guardar el pin te sirve en caso de que quieras editar esta info.</Description>
-      <ButtonPrimary onClick={() => props.action(['Una última cosa!',2])}>Aceptar</ButtonPrimary>
+          <PinHolder>{pin}</PinHolder>
+          <Description>Guardar el pin te sirve en caso de que quieras editar esta info.</Description>
+          <ButtonPrimary onClick={() => props.action(['Una última cosa!', 2])}>Aceptar</ButtonPrimary>
+        </>}
+      {!pinFetching && !pinFound &&
+        <>
+          <ErrorMsg>{message}</ErrorMsg>
+          <ButtonPrimary onClick={() => props.close()}>Aceptar</ButtonPrimary>
+        </>
+      }
     </Wrapper>
   )
 }

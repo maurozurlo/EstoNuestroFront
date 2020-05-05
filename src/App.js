@@ -20,7 +20,6 @@ import Modal from './components/Modal'
 //Assets
 import logo from './assets/logo.svg'
 //API
-import { userList } from './api'
 import { getToday } from './helpers/date'
 
 const Container = styled.div`
@@ -44,19 +43,11 @@ const App = () => {
   const changeModalState = () => setModalState(!modalState);
 
   const [value, setValue] = useState({
-    selectedDay: '',
-    niceDay: '',
-    selectedTime: '',
-    user: 'elmiauro',
-    pin: '0000'
+    selectedDay: '', niceDay: '', selectedTime: '', user: '', pin: ''
   });
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
 
-  //Add item
-  async function addItem(value) {
-    changeModalState();
-  }
 
   return (
     <Router>
@@ -75,10 +66,9 @@ const App = () => {
                 <Modal
                   title='Anotarte'
                   close={changeModalState}
-                  addItemToList={addItem}
                   content='0'
                 ></Modal> : null}
-              <Day list={userList} triggerModal={changeModalState}/>
+              <Day triggerModal={changeModalState} />
             </CalendarContext.Provider>
           </Route>
         </Switch>

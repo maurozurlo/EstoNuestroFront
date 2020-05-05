@@ -37,13 +37,16 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 `
+const reloadPage = () =>{
+  window.location.reload();
+}
 
 const Confirmation2 = (props) => {
   return (
     <Wrapper>
       <Description>Por favor recordá buscar el usuario y contraseña para poder hacer el vivo desde nuestra cuenta en el grupo de WhatApp.<br />
       Si necesitás ayuda para hacer un vivo, <a href='https://docs.google.com/document/d/1Ow7tgtoLjvvyypAQUbfEgV7vMjmYJzt4l05HSFMf02c'>hacé click acá.</a></Description>
-      <ButtonPrimary onClick={() => props.close()}>Aceptar</ButtonPrimary>
+      <ButtonPrimary onClick={() => reloadPage()}>Aceptar</ButtonPrimary>
     </Wrapper>
   )
 }

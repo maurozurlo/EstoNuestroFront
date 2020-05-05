@@ -60,7 +60,7 @@ const ModalHeader = styled.div`
 `
 
 const ModalContent = styled.div`
-padding-bottom: 20px;
+  padding-bottom: 20px;
 `
 
 const Modal = (props) => {
