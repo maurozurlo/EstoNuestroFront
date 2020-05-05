@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components'
 //Components
@@ -9,7 +9,9 @@ import Arrow from '../icons/Arrow'
 import { getYesterday, getTomorrow, getFormattedDate } from '../helpers/date'
 import { getHex } from '../helpers/colors'
 //Context
-import {CalendarContext} from '../CalendarContext'
+import { CalendarContext } from '../CalendarContext'
+// API
+const { getDate } = require('../components/handlers/api');
 
 const Wrapper = styled.div`
 background: rgba(255,255,255,0.3);
@@ -64,6 +66,12 @@ const Day = (props) => {
   const { date } = useParams()
   const { setValue } = useContext(CalendarContext);
 
+  const [dayFound, setDayFound] = useState(false);
+  const [dayFetching, setDayFetching] = useState(true);
+  const [day, setDay] = useState({
+    contents: {}
+  })
+
   const handleTime = (val) => {
     setValue({
       selectedDay: date,
@@ -75,8 +83,28 @@ const Day = (props) => {
     //props.setParentTime(val, getFormattedDate(date)) //Set selectedTime for Modal;
   }
 
+  //Api Fetch
+  useEffect(() => {
+    setDayFetching(true);
+    
+    getDate(date)
+    .then(res => {
+      setDayFetching(false);
+      
+      if(res) {
+        setDayFound(true);
+        setDay(res);
+      } else {
+        setDayFound(false)
+      }
+    })
+    .catch(
+      setDayFound(false)
+    )
+  }, [date]);
+
   const returnUser = (hour) => {
-    return props.list[date] ? props.list[date][hour] : null
+    return day.contents ? day.contents[hour] : null
   }
 
   return (
@@ -93,15 +121,32 @@ const Day = (props) => {
         </Link>
       </SubHeader>
       <Wrapper>
-        {slots.map((element, i) =>
-          <Row
-            key={i}
-            hour={element}
-            bg={getHex(colors[0], colors[1], i)}
-            handleClick={handleTime}
-            user={returnUser(element)}
-          />
+
+        {dayFetching && (
+          <p>Buscando datos...</p>
         )}
+        {!dayFetching && dayFound &&
+          slots.map((element, i) =>
+            <Row
+              key={i}
+              hour={element}
+              bg={getHex(colors[0], colors[1], i)}
+              handleClick={handleTime}
+              user={returnUser(element)}
+            />
+          )
+        }
+        {!dayFetching && !dayFound &&
+          slots.map((element, i) =>
+            <Row
+              key={i}
+              hour={element}
+              bg={getHex(colors[0], colors[1], i)}
+              handleClick={handleTime}
+              user={null}
+            />
+          )
+        }
       </Wrapper>
     </>
   )
