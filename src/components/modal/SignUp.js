@@ -37,7 +37,6 @@ const SignUp = (props) => {
   const handleInput = (e) => {
     const cleanString = e.target.value.replace(/[^a-zA-Z0-9-_.]/g, "")
     setUsername(cleanString)
-    setValue({ ...value, ...{ 'user': cleanString } });
   }
 
   const [username, setUsername] = useState(value.user)
@@ -47,6 +46,7 @@ const SignUp = (props) => {
     if (username === undefined || username.length < 3) {
       setError('El nombre de usuario debe tener mínimo 3 letras.');
     } else {
+      setValue({ ...value, ...{ 'user': username } });
       props.action(['Anotarte', 1]);
     }
   }

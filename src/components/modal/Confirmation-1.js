@@ -125,7 +125,7 @@ const Confirmation1 = (props) => {
             <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
         Por favor <strong>guardá tu pin</strong>:</Description>
           <PinHolder>{pin}</PinHolder>
-          <Description>Guardar el pin te sirve en caso de que quieras editar esta info.</Description>
+          <Description>Guardar el pin te sirve en caso de que quieras liberar este horario.</Description>
           <ButtonPrimary onClick={() => props.action(['Una última cosa!', 2])}>Aceptar</ButtonPrimary>
         </>}
       {!pinFetching && !pinFound &&
