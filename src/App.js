@@ -41,13 +41,19 @@ const App = () => {
   //Modal
   const [modalState, setModalState] = useState(false)
   const changeModalState = () => setModalState(!modalState);
+  const [modalContent, setModalContent] = useState(['','0'])
 
   const [value, setValue] = useState({
     selectedDay: '', niceDay: '', selectedTime: '', user: '', pin: ''
   });
 
-  const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
+  const displayModal = (title,content) =>{
+    setModalContent([title,content]);
+    changeModalState();
+  }
 
+
+  const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
 
   return (
     <Router>
@@ -66,9 +72,9 @@ const App = () => {
                 <Modal
                   title='Anotarte'
                   close={changeModalState}
-                  content='0'
+                  content={modalContent}
                 ></Modal> : null}
-              <Day triggerModal={changeModalState} />
+              <Day triggerModal={displayModal} />
             </CalendarContext.Provider>
           </Route>
         </Switch>

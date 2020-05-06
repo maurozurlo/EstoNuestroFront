@@ -73,15 +73,15 @@ const Day = (props) => {
     contents: {}
   })
 
-  const handleTime = (val) => {
+  const handleTime = (slot, title, content,user) => {
     setValue({
       selectedDay: date,
       niceDay: getFormattedDate(date),
-      selectedTime: val
+      selectedTime: slot,
+      user: user
     });
     //Open modal
-    props.triggerModal();
-    //props.setParentTime(val, getFormattedDate(date)) //Set selectedTime for Modal;
+    props.triggerModal(title, content);
   }
 
   //Api Fetch

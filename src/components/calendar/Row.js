@@ -45,10 +45,10 @@ const Row = (props) => {
   return (
     
     <Wrapper>
-      <Hour onClick={() => console.log(props.user)}>{props.hour}hs</Hour>
+      <Hour>{props.hour}hs</Hour>
       {props.user ? 
-      <SelectedSlot bg={props.bg}>{`@${props.user}`}</SelectedSlot> : 
-      <Slot onClick={() => props.handleClick(props.hour)}>¡Anotate en este espacio!</Slot>}
+      <SelectedSlot onClick={() => props.handleClick(props.hour,'Horario','3',props.user)} bg={props.bg}>{`@${props.user}`}</SelectedSlot> : 
+      <Slot onClick={() => props.handleClick(props.hour,'Anotarte','0','')}>¡Anotate en este espacio!</Slot>}
     </Wrapper>
 
   )

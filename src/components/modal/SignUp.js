@@ -53,11 +53,11 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Description>Por favor ingresá tu usuario de Instagram <i>sin arroba</i>para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>
+      <Description>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>
       <Input
         type="text"
         value={username}
-        placeholder="Tu usuario de Instagram!..."
+        placeholder="Tu usuario de Instagram..."
         onChange={handleInput}
         autoFocus />
       <ErrorMsg>{error}</ErrorMsg>

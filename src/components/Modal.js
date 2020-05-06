@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 import React, {useState} from 'react'
-//Assets
-import close from '../icons/close.svg'
 //Components
 //Modal content
 import SignUp from './modal/SignUp'
 import Confirmation1 from './modal/Confirmation-1'
 import Confirmation2 from './modal/Confirmation-2'
+import ViewSlot from './modal/ViewSlot'
 
 const ModalContainer = styled.div`
   z-index: 999;
@@ -64,7 +63,7 @@ const ModalContent = styled.div`
 `
 
 const Modal = (props) => {
-  const [content, setContent] = useState([props.title, props.content]);
+  const [content, setContent] = useState([props.content[0], props.content[1]]);
   const setModalContent = (title, val) => setContent(title, val);
 
   const RenderContent = () =>{
@@ -75,6 +74,8 @@ const Modal = (props) => {
     return (<Confirmation1 close={props.close} action={setModalContent}/>);
     if(i === 2)
     return (<Confirmation2 close={props.close}/>);
+    if(i === 3)
+    return (<ViewSlot close={props.close}/>);
     return null;
   }
 
@@ -84,7 +85,6 @@ const Modal = (props) => {
       <ModalCard>
         <ModalHeader>
           <h2>{content[0]}</h2>
-          <img src={close} alt="" onClick={props.close} />
         </ModalHeader>
         <ModalContent>
           {<RenderContent />}
