@@ -9,7 +9,7 @@ const formatDate = (str) =>{
   str = str.split("-");
   const frmStr = [str[2],str[1],str[0]];
   //TE ODIO SAFARI ME HACES ESCRIBIR CODIGO DEMAS
-  const date = new Date(frmStr.join('-').replace(/-/g, "/"));
+  const date = new Date(frmStr.join('/'));
   return date;
 }
 
@@ -17,7 +17,7 @@ export const getFormattedDate = (date) => {
   const f = formatDate(date);
   const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
   const diasSemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
-  const text = diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()];
+  const text = diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()];
   return text;
 }
 
