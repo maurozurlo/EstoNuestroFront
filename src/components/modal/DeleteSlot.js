@@ -31,44 +31,44 @@ const ErrorMsg = styled.p`
   text-align: center;
 `
 
-const SignUp = (props) => {
+const DeleteSlot = (props) => {
   const { value, setValue } = useContext(CalendarContext);
+  
+  const [slotPin, setSlotPin] = useState(value.pin)
+  const [error, setError] = useState('')
   //Input
   const handleInput = (e) => {
-    const cleanString = e.target.value.replace(/[^a-zA-Z0-9-_.]/g, "")
-    setUsername(cleanString)
-    setValue({ ...value, ...{ 'user': cleanString } });
+    const cleanString = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+    setSlotPin(cleanString)
+    setValue({ ...value, ...{ 'pin': cleanString } });
   }
 
-  const [username, setUsername] = useState(value.user)
-  const [error, setError] = useState('')
-
-  const checkUsernameLength = () => {
-    if (username === undefined || username.length < 3) {
-      setError('El nombre de usuario debe tener mínimo 3 letras.');
+  const checkPinLength = () => {
+    if (slotPin === undefined || slotPin.length < 3) {
+      setError('El pin debe tener mínimo 4 números.');
     } else {
-      props.action(['Anotarte', 1]);
+      props.action(['Liberar', 5]);
     }
   }
 
   return (
     <>
-      <Description>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>
+      <Description>Por favor ingresá el pin para poder liberar el horario <strong>{value.selectedTime}hs</strong> el <strong>{value.niceDay}</strong></Description>
       <Input
         type="text"
-        value={username}
-        placeholder="Tu usuario de Instagram..."
+        value={slotPin}
+        placeholder="Pin..."
         onChange={handleInput}
         autoFocus />
       <ErrorMsg>{error}</ErrorMsg>
       <ButtonContainer
-        action={() => checkUsernameLength()}
+        action={() => checkPinLength()}
         close={props.close}
         secondaryText="Cancelar"
-        primaryText="Anotarme"
+        primaryText="Liberar"
       />
     </>
   )
 }
 
-export default SignUp;
+export default DeleteSlot;

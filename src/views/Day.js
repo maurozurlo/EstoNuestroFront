@@ -7,7 +7,7 @@ import Spinner from '../components/atoms/Spinner'
 //Assets 
 import Arrow from '../icons/Arrow'
 //Helpers
-import { getYesterday, getTomorrow, getFormattedDate } from '../helpers/date'
+import { getYesterday, getTomorrow, getFormattedDate, checkIfDateIsBeforeToday } from '../helpers/date'
 import { getHex } from '../helpers/colors'
 //Context
 import { CalendarContext } from '../CalendarContext'
@@ -80,8 +80,15 @@ const Day = (props) => {
       selectedTime: slot,
       user: user
     });
-    //Open modal
-    props.triggerModal(title, content);
+    //Check if date is older than today && open modal
+    if(!checkIfDateIsBeforeToday(date)){
+      if(content === '0')
+      props.triggerModal('Ehm...', '7');
+      else
+      props.triggerModal(title, content);
+    }else{
+      props.triggerModal(title, content);
+    }
   }
 
   //Api Fetch

@@ -26,7 +26,19 @@ const addUser = async (payload) => {
   }
 }
 
+const removeUser = async (payload) => {
+  const route = `${baseUrl}/api/day/remove`;
+
+  try {
+    const response = await axios.delete(`${route}`, {data: payload});
+    return response;
+  } catch (error) {
+    return error.response.data.msg;
+  }
+}
+
 export {
   getDate,
-  addUser
+  addUser,
+  removeUser
 }

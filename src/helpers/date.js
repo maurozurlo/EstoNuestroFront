@@ -80,9 +80,19 @@ export const getTomorrow = (date) => {
   return dd + '-' + mm + '-' + yyyy;
 }
 
+export const checkIfDateIsBeforeToday = (date) =>{
+  const today = new Date().setHours(0,0,0,0);
+  const formatedDate = formatDate(date);
+  if(formatedDate === today || formatedDate >= today)
+  return true;
+
+  return false;
+}
+
 export default {
   getToday,
   getYesterday,
   getTomorrow,
-  getFormattedDate
+  getFormattedDate,
+  checkIfDateIsBeforeToday
 }

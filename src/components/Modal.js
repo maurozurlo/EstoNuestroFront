@@ -6,6 +6,10 @@ import SignUp from './modal/SignUp'
 import Confirmation1 from './modal/Confirmation-1'
 import Confirmation2 from './modal/Confirmation-2'
 import ViewSlot from './modal/ViewSlot'
+import DeleteSlot from './modal/DeleteSlot'
+import DeleteSlot1 from './modal/DeleteSlot-1'
+import ForgotPin from './modal/ForgotPin'
+import DateAlert from './modal/DateAlert'
 
 const ModalContainer = styled.div`
   z-index: 999;
@@ -75,7 +79,15 @@ const Modal = (props) => {
     if(i === 2)
     return (<Confirmation2 close={props.close}/>);
     if(i === 3)
-    return (<ViewSlot close={props.close}/>);
+    return (<ViewSlot close={props.close} action={setModalContent}/>);
+    if(i === 4)
+    return (<DeleteSlot close={props.close} action={setModalContent}/>);
+    if(i === 5)
+    return (<DeleteSlot1 close={props.close} action={setModalContent}/>);
+    if(i === 6)
+    return (<ForgotPin close={props.close}/>);
+    if(i === 7)
+    return (<DateAlert close={props.close}/>);
     return null;
   }
 

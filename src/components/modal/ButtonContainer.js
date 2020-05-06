@@ -43,8 +43,8 @@ const ButtonOutline = styled(Button)`
 const ButtonContainer = (props) => {
   return (
     <Wrapper>
-      <ButtonOutline onClick={props.close} >Cancelar</ButtonOutline>
-      <ButtonPrimary disabled={props.disabled} onClick={props.action}>Agregar</ButtonPrimary>
+      <ButtonOutline onClick={props.close} >{props.secondaryText}</ButtonOutline>
+      <ButtonPrimary disabled={props.disabled} onClick={props.action}>{props.primaryText}</ButtonPrimary>
     </Wrapper>
   )
 }

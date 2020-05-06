@@ -15,9 +15,12 @@ const ViewSlot = (props) => {
   
   return (
     <>
-      <Description> <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br /></Description>
+      <Description> <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotadx el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br /></Description>
       <ButtonContainer
-        close={props.close}
+        action={props.close}
+        close={() => props.action(['Liberar horario', 4])}
+        secondaryText="Liberar"
+        primaryText="Aceptar"
       />
     </>
   )
