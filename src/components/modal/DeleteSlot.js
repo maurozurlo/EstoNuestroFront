@@ -40,13 +40,13 @@ const DeleteSlot = (props) => {
   const handleInput = (e) => {
     const cleanString = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
     setSlotPin(cleanString)
-    setValue({ ...value, ...{ 'pin': cleanString } });
   }
 
   const checkPinLength = () => {
     if (slotPin === undefined || slotPin.length < 3) {
       setError('El pin debe tener mínimo 4 números.');
     } else {
+      setValue({ ...value, ...{ 'pin': slotPin } });
       props.action(['Liberar', 5]);
     }
   }
