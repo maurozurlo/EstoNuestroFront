@@ -58,7 +58,7 @@ const Wrapper = styled.div`
 
 const ErrorMsg = styled.p`
   color: var(--error-message);
-  font-size: 12px;
+  font-size: 1em;
   font-weight: bold;
   margin: 0;
   padding: 0px 5px;
