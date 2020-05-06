@@ -59,6 +59,7 @@ const SignUp = (props) => {
         value={username}
         placeholder="Tu usuario de Instagram..."
         onChange={handleInput}
+        maxLength="30"
         autoFocus />
       <ErrorMsg>{error}</ErrorMsg>
       <ButtonContainer
