@@ -16,7 +16,6 @@ const { getDate } = require('../components/handlers/api');
 
 const Wrapper = styled.div`
 background: rgba(255,255,255,0.3);
-border-top: 2px solid rgba(255,255,255,0.4);
 border-bottom: 2px solid rgba(255,255,255,0.4);
 margin: 0 auto;
 width: 100%;
@@ -27,8 +26,6 @@ font-size: .8em;
 `
 
 const SubHeader = styled.div`
-border-top: 2px solid rgba(255,255,255,0.4);
-border-bottom: 2px solid rgba(255,255,255,0.4);
 margin: 0 auto;
 width: 90%;
 max-width: 650px;

@@ -1,6 +1,6 @@
 const axios = require('axios');
-const baseUrl = 'https://estonuestro.herokuapp.com';
-//const baseUrl = 'http://localhost:5000';
+//const baseUrl = 'https://estonuestro.herokuapp.com';
+const baseUrl = 'http://localhost:5000';
 
 
 const getDate = async (date) => {

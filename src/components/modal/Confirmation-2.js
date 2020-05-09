@@ -44,7 +44,7 @@ const reloadPage = () =>{
 const Confirmation2 = (props) => {
   return (
     <Wrapper>
-      <Description>Por favor recordá buscar el usuario y contraseña para poder hacer el vivo desde nuestra cuenta en el grupo de WhatApp.<br />
+      <Description>Por favor recordá buscar el usuario y contraseña para poder hacer el vivo desde nuestra cuenta en el grupo de WhatsApp.<br />
       Si necesitás ayuda para hacer un vivo, <a href='https://docs.google.com/document/d/1Ow7tgtoLjvvyypAQUbfEgV7vMjmYJzt4l05HSFMf02c'>hacé click acá.</a></Description>
       <ButtonPrimary onClick={() => reloadPage()}>Aceptar</ButtonPrimary>
     </Wrapper>

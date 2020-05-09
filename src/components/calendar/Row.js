@@ -22,7 +22,7 @@ font-weight: 600;
 text-align: center;
 background-color: var(--slot-background);
 border: 2px solid var(--slot-background);
-padding: 13px 0;
+padding: 10px 0;
 color: var(--slot-text);
 border-radius: 5px;
 cursor: pointer;
