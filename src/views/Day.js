@@ -116,7 +116,7 @@ const Day = (props) => {
   const checkIfMultipleUsers = (val) =>{
     if(val !== undefined){
       const users = val.split('%');
-      return users.length > 1 ? users.join(", @") : users;
+      return users.length > 1 ? users.join(", @") : val;
     }
     return null;
   }

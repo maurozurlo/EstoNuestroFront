@@ -14,14 +14,13 @@ const ViewSlot = (props) => {
   const { value } = useContext(CalendarContext);
 
   const checkIfMoreThanOneUser = () => {
-    console.log(value.user)
     const users = value.user.split(", @");
 
     const One = () => {
       return (
         <>
           <a href={`https://instagram.com/${value.user}`}>
-            {`@${value.user}`}</a> está anotadx
+            {`@${value.user}`}</a> está anotadx el
         </>
       )
     }
@@ -29,9 +28,9 @@ const ViewSlot = (props) => {
     const Many = users.map((item, i) => {
       return (
         <Fragment key={i}>
-          {i === users.length - 1 ? 'y ' : ''}
-          <a href={`https://instagram.com/${item}`}>@{item}</a>
-          {i === users.length - 1 ? ' están anotadxs' : ', '}
+        {i === users.length-1 ? 'y ' : ''}
+        <a  href={`https://instagram.com/${item}`}>@{item}</a>
+        {i === users.length-1 ? ' están anotadxs el' : ', '}
         </Fragment>
       );
     });
@@ -39,7 +38,7 @@ const ViewSlot = (props) => {
     return users.length === 1 ? <One /> : Many;
   }
 
-
+  
   return (
     <>
       <Description>
