@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 import styled from 'styled-components'
 //Components
 import ButtonContainer from './ButtonContainer'
@@ -12,10 +12,38 @@ const Description = styled.p`
 
 const ViewSlot = (props) => {
   const { value } = useContext(CalendarContext);
-  
+
+  const checkIfMoreThanOneUser = () => {
+    console.log(value.user)
+    const users = value.user.split(", @");
+
+    const One = () => {
+      return (
+        <>
+          <a href={`https://instagram.com/${value.user}`}>
+            {`@${value.user}`}</a> está anotadx
+        </>
+      )
+    }
+
+    const Many = users.map((item, i) => {
+      return (
+        <Fragment key={i}>
+          {i === users.length - 1 ? 'y ' : ''}
+          <a href={`https://instagram.com/${item}`}>@{item}</a>
+          {i === users.length - 1 ? ' están anotadxs' : ', '}
+        </Fragment>
+      );
+    });
+
+    return users.length === 1 ? <One /> : Many;
+  }
+
+
   return (
     <>
-      <Description> <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotadx el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br /></Description>
+      <Description>
+        {checkIfMoreThanOneUser()}<strong> {value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br /></Description>
       <ButtonContainer
         action={props.close}
         close={() => props.action(['Liberar horario', 4])}

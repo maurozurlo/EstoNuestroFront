@@ -51,8 +51,8 @@ const Header = styled.header`
     max-width: 200px;
   }
 `
-const trackingId = "UA-166030746-1";
-ReactGA.initialize(trackingId)
+//const trackingId = "UA-166030746-1";
+//ReactGA.initialize(trackingId)
 const browserHistory = createBrowserHistory()
 browserHistory.listen((location, action) => {
   ReactGA.pageview(location.pathname + location.search)
@@ -64,7 +64,7 @@ const App = () => {
     ReactGA.pageview(window.location.pathname + window.location.search)
   }, [])
   //Get local storage
-  const getLocalStorage = () =>{
+  const getLocalStorage = () => {
     const val = JSON.parse(localStorage.getItem('onboarding'));
     return val !== null ? val : true;
   }
@@ -83,16 +83,16 @@ const App = () => {
   }
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
-  
+
   return (
     <Router>
       <Container>
         <Header>
           <Link to="/"><img src={logo} alt="logo" /></Link>
         </Header>
-        <hr/>
+        <hr />
         <Navigation />
-        <hr/>
+        <hr />
         <Switch>
           {/* Default path */}
           <Route exact path="/" render={() => (
@@ -102,7 +102,7 @@ const App = () => {
             <Redirect to={`/dia/${getToday()}`} />
           )} />
           <Route exact path="/info">
-            <Info/>
+            <Info />
           </Route>
           <Route path="/dia/:date">
             <CalendarContext.Provider value={providerValue}>
@@ -112,7 +112,7 @@ const App = () => {
                   close={changeModalState}
                   content={modalContent}
                 ></Modal> : null}
-              <Day triggerModal={displayModal}/>
+              <Day triggerModal={displayModal} />
             </CalendarContext.Provider>
           </Route>
         </Switch>

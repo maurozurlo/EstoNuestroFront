@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 //Components
 //Modal content
 import SignUp from './modal/SignUp'
@@ -71,26 +71,26 @@ const Modal = (props) => {
   const [content, setContent] = useState([props.content[0], props.content[1]]);
   const setModalContent = (title, val) => setContent(title, val);
 
-  const RenderContent = () =>{
+  const RenderContent = () => {
     const i = parseInt(content[1]);
-    if(i === 0)
-    return (<SignUp close={props.close} action={setModalContent}/>);
-    if(i === 1)
-    return (<Confirmation1 close={props.close} action={setModalContent}/>);
-    if(i === 2)
-    return (<Confirmation2 close={props.close}/>);
-    if(i === 3)
-    return (<ViewSlot close={props.close} action={setModalContent}/>);
-    if(i === 4)
-    return (<DeleteSlot close={props.close} action={setModalContent}/>);
-    if(i === 5)
-    return (<DeleteSlot1 close={props.close} action={setModalContent}/>);
-    if(i === 6)
-    return (<ForgotPin close={props.close}/>);
-    if(i === 7)
-    return (<DateAlert close={props.close}/>);
-    if(i === 8)
-    return (<Onboarding close={props.close}/>);
+    if (i === 0)
+      return (<SignUp close={props.close} action={setModalContent} />);
+    if (i === 1)
+      return (<Confirmation1 close={props.close} action={setModalContent} />);
+    if (i === 2)
+      return (<Confirmation2 close={props.close} />);
+    if (i === 3)
+      return (<ViewSlot close={props.close} action={setModalContent} />);
+    if (i === 4)
+      return (<DeleteSlot close={props.close} action={setModalContent} />);
+    if (i === 5)
+      return (<DeleteSlot1 close={props.close} action={setModalContent} />);
+    if (i === 6)
+      return (<ForgotPin close={props.close} />);
+    if (i === 7)
+      return (<DateAlert close={props.close} />);
+    if (i === 8)
+      return (<Onboarding close={props.close} />);
     return null;
   }
 

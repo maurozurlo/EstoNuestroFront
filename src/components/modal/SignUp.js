@@ -35,7 +35,7 @@ const SignUp = (props) => {
   const { value, setValue } = useContext(CalendarContext);
   //Input
   const handleInput = (e) => {
-    const cleanString = e.target.value.replace(/[^a-zA-Z0-9-_.]/g, "")
+    const cleanString = e.target.value.replace(/[^a-zA-Z0-9-_.%]/g, "")
     setUsername(cleanString)
   }
 
@@ -53,13 +53,14 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Description>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong></Description>
+      <Description>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong><br />
+      <small>Psst!... podes agregar hasta 3 personas más usando el símbolo <strong>%</strong></small></Description>
       <Input
         type="text"
         value={username}
         placeholder="Tu usuario de Instagram..."
         onChange={handleInput}
-        maxLength="30"
+        maxLength="123"
         autoFocus />
       <ErrorMsg>{error}</ErrorMsg>
       <ButtonContainer

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import Spinner from '../atoms/Spinner'
 //Context
@@ -110,9 +110,32 @@ const Confirmation1 = (props) => {
           }
         })
     }
-    //console.log('pin:', pin);
   }, [pin, message, value.pin, value.selectedDay, value.selectedTime, value.user, pinFound]);
 
+  const checkIfMoreThanOneUser = () => {
+    const users = value.user.split("%");
+
+    const One = () => {
+      return (
+        <>
+          <a href={`https://instagram.com/${value.user}`}>
+            {`@${value.user}`}</a> está anotadx el
+        </>
+      )
+    }
+
+    const Many = users.map((item, i) => {
+      return (
+        <Fragment key={i}>
+          {i === users.length - 1 ? 'y ' : ''}
+          <a href={`https://instagram.com/${item}`}>@{item}</a>
+          {i === users.length - 1 ? ' están anotadxs el' : ', '}
+        </Fragment>
+      );
+    });
+
+    return users.length === 1 ? <One /> : Many;
+  }
 
   return (
     <Wrapper>
@@ -122,7 +145,8 @@ const Confirmation1 = (props) => {
       {!pinFetching && pinFound &&
         <>
           <Description>
-            <a href={`https://instagram.com/${value.user}`}>@{value.user}</a> está anotado el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
+            {checkIfMoreThanOneUser()}
+            <strong> {value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
         Por favor <strong>guardá tu pin</strong>:</Description>
           <PinHolder>{pin}</PinHolder>
           <Description>Guardar el pin te sirve en caso de que quieras liberar este horario.</Description>

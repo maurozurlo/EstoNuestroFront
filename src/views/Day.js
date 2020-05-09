@@ -110,7 +110,15 @@ const Day = (props) => {
   }, [date]);
 
   const returnUser = (hour) => {
-    return day.contents ? day.contents[hour] : null
+    return day.contents ? checkIfMultipleUsers(day.contents[hour]) : null
+  }
+
+  const checkIfMultipleUsers = (val) =>{
+    if(val !== undefined){
+      const users = val.split('%');
+      return users.length > 1 ? users.join(", @") : users;
+    }
+    return null;
   }
 
   return (
