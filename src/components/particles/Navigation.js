@@ -4,8 +4,6 @@ import Tab from '../atoms/Tab'
 //Icons
 import Calendar from '../../icons/Calendar'
 import Info from '../../icons/Info'
-//Date
-import { getToday } from '../../helpers/date'
 
 const Wrapper = styled.ul`
   list-style: none;
@@ -22,12 +20,10 @@ const Navigation = (props) => {
   return (
     <Wrapper>
           <Tab index={0}
-          exact={false}
-          link={`${getToday()}`}
+          link={`/dia`}
           icon={<Calendar />}
           label='Calendario' />
           <Tab index={1}
-          exact={true}
           link={'/info'}
           icon={<Info />}
           label='Información'  />

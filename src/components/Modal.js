@@ -10,6 +10,7 @@ import DeleteSlot from './modal/DeleteSlot'
 import DeleteSlot1 from './modal/DeleteSlot-1'
 import ForgotPin from './modal/ForgotPin'
 import DateAlert from './modal/DateAlert'
+import Onboarding from './modal/Onboarding'
 
 const ModalContainer = styled.div`
   z-index: 999;
@@ -88,6 +89,8 @@ const Modal = (props) => {
     return (<ForgotPin close={props.close}/>);
     if(i === 7)
     return (<DateAlert close={props.close}/>);
+    if(i === 8)
+    return (<Onboarding close={props.close}/>);
     return null;
   }
 

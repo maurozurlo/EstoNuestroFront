@@ -39,7 +39,7 @@ const Tab = (props) => {
 
   return (
     <Wrapper>
-      <StyledLink exact to={props.link}>
+      <StyledLink to={props.link}>
         <span>{props.icon} {props.label}</span>
       </StyledLink>
     </Wrapper>

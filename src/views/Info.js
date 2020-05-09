@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 650px;
-  padding: 10px;
+  padding: 0 10px;
   p {
     color: var(--text-dark);
     font-weight: 500;

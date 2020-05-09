@@ -1,5 +1,5 @@
 //Core
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,6 +7,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { createBrowserHistory } from 'history'
+import ReactGA from 'react-ga'
 
 import styled from 'styled-components'
 //Components
@@ -49,12 +51,27 @@ const Header = styled.header`
     max-width: 200px;
   }
 `
+const trackingId = "UA-166030746-1";
+ReactGA.initialize(trackingId)
+const browserHistory = createBrowserHistory()
+browserHistory.listen((location, action) => {
+  ReactGA.pageview(location.pathname + location.search)
+})
 
 const App = () => {
+  //GA
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }, [])
+  //Get local storage
+  const getLocalStorage = () =>{
+    const val = JSON.parse(localStorage.getItem('onboarding'));
+    return val !== null ? val : true;
+  }
   //Modal
-  const [modalState, setModalState] = useState(false)
+  const [modalState, setModalState] = useState(getLocalStorage())
   const changeModalState = () => setModalState(!modalState);
-  const [modalContent, setModalContent] = useState(['', '0'])
+  const [modalContent, setModalContent] = useState(['Bienvenidx', '8'])
 
   const [value, setValue] = useState({
     selectedDay: '', niceDay: '', selectedTime: '', user: '', pin: ''
@@ -79,12 +96,15 @@ const App = () => {
         <Switch>
           {/* Default path */}
           <Route exact path="/" render={() => (
-            <Redirect to={`${getToday()}`} />
+            <Redirect to={`/dia/${getToday()}`} />
+          )} />
+          <Route exact path="/dia" render={() => (
+            <Redirect to={`/dia/${getToday()}`} />
           )} />
           <Route exact path="/info">
             <Info/>
           </Route>
-          <Route path="/:date">
+          <Route path="/dia/:date">
             <CalendarContext.Provider value={providerValue}>
               {modalState ?
                 <Modal
