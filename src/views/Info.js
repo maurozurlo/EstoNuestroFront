@@ -52,14 +52,23 @@ const Wrapper = styled.div`
       font-size: 1.3em;
       text-align: center;
     }
+
+    h3{
+      margin: 0;
+    }
 `
 
 const Info = (props) => {
   return (
     <Wrapper>
         <p><a href="https://instagram.com/estonuestro">@EstoNuestro</a> es un espacio creado a modo de “escenario virtual” en Instagram, donde lxs artistas pueden sumarse a mostrar su arte día a día, y contando con falicilitadorxs en el grupo dispuestxs a ayudarles con cualquier duda.</p>
+        <p>
+          <h3>Cómo</h3>
+        Los vivos se transmiten desde la cuenta @estonuestro, cada artista cuenta con la hora que da instagram para usar a gusto suyo, pueden invitar a más gente a su vivo, pero sepan que si comparten un vivo a distancia y quieren tocar en conjunto puede haber delay que quizás no noten en el momento de tocar, pero que pueden sentirlos lxs que estén viendo la transmisión
+        </p>
+        <h3>Instrucciones</h3>
         <ol>
-          <li>Podés invitar al grupo de WhatsApp a cualquier artista que deseés integrar al proyecto.</li>
+          <li>Pueden hacer vivos entre más de un artista. La forma de anotarse es usando un comodin <strong>%</strong> para los nombres, por ejemplo: tuusuario<strong>%</strong>otrousuario<strong>%</strong>otrousuario...</li>
           <li>Podés participar <strong>todas las veces que quieras</strong> mientras tengas mínimo un bloque de por medio entre cada transmisión. (exceptuando a los vivos realizados entre más de dos personas)</li>
           <li>Una vez <strong>anotadx, un día antes de tocar, pasá una foto tuya</strong> por mensaje privado de Instagram a @estonuestro para que podamos publicarla junto al flyer, éste se publicará (junto a las fotografías recibidas) siempre tres horas antes de que comience el primer directo del día.</li>
           <li>Durante tu vivo <strong>podés hacer un comentario escribiendo el nombre de su Instagram personal</strong>, y manteniéndolo presionado, o dándole doble click, te da la opción de fijarlo.</li>
