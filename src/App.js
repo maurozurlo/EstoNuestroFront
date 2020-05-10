@@ -51,8 +51,8 @@ const Header = styled.header`
     max-width: 200px;
   }
 `
-//const trackingId = "UA-166030746-1";
-//ReactGA.initialize(trackingId)
+const trackingId = "UA-166030746-1";
+ReactGA.initialize(trackingId)
 const browserHistory = createBrowserHistory()
 browserHistory.listen((location, action) => {
   ReactGA.pageview(location.pathname + location.search)
