@@ -1,40 +1,11 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import Spinner from '../atoms/Spinner'
+import ButtonPrimary from '../atoms/PrimaryButton'
 //Context
 import { CalendarContext } from '../../CalendarContext'
 // API
 const { addUser } = require('../handlers/api');
-
-const Description = styled.p`
-  color: var(--text-dark);
-  margin: 0;
-  padding: 10px 5px;
-`
-
-const Button = styled.button`
-  font-weight: 600;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  min-width: 90px;
-  padding: 10px 80px;
-`
-
-const ButtonPrimary = styled(Button)`
-  background-color: var(--button-primary);
-  border: var(--button-primary);
-  color: white;
-  :hover{
-    filter: contrast(1.5);
-    cursor: pointer;
-  }
-  :disabled,
-  [disabled]{
-    border: 1px solid #939393;
-    background-color:#f5f5f5;
-    color: #939393;
-  }
-`
 
 const PinHolder = styled.div`
   font-size: 2em;
@@ -144,18 +115,18 @@ const Confirmation1 = (props) => {
       )}
       {!pinFetching && pinFound &&
         <>
-          <Description>
+          <p>
             {checkIfMoreThanOneUser()}
             <strong> {value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
-        Por favor <strong>guardá tu pin</strong>:</Description>
+        Por favor <strong>guardá tu pin</strong>:</p>
           <PinHolder>{pin}</PinHolder>
-          <Description>Guardar el pin te sirve en caso de que quieras liberar este horario.</Description>
-          <ButtonPrimary onClick={() => props.action(['Una última cosa!', 2])}>Aceptar</ButtonPrimary>
+          <p>Guardar el pin te sirve en caso de que quieras liberar este horario.</p>
+          <ButtonPrimary action={() => props.action(['Una última cosa!', 2])} primaryText="Aceptar" />
         </>}
       {!pinFetching && !pinFound &&
         <>
           <ErrorMsg>{message}</ErrorMsg>
-          <ButtonPrimary onClick={() => props.close()}>Aceptar</ButtonPrimary>
+          <ButtonPrimary action={() => props.close()} primaryText="Aceptar" />
         </>
       }
     </Wrapper>

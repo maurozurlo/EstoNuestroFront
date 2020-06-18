@@ -34,13 +34,12 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
   }
 `;
 
-
 const Tab = (props) => {
-
   return (
     <Wrapper>
       <StyledLink to={props.link}>
-        <span>{props.icon} {props.label}</span>
+        {props.icon} <br />
+        <span>{props.label}</span>
       </StyledLink>
     </Wrapper>
   )

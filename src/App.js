@@ -16,6 +16,7 @@ import Navigation from './components/particles/Navigation'
 //Views
 import Day from './views/Day'
 import Info from './views/Info'
+import Instagram from './views/Instagram'
 //Context
 import { CalendarContext } from './CalendarContext'
 //Modal
@@ -103,6 +104,9 @@ const App = () => {
           )} />
           <Route exact path="/info">
             <Info />
+          </Route>
+          <Route exact path="/instagram">
+            <Instagram />
           </Route>
           <Route path="/dia/:date">
             <CalendarContext.Provider value={providerValue}>

@@ -23,6 +23,7 @@ max-width: 650px;
 text-align: center;
 box-sizing: border-box;
 font-size: .8em;
+padding-top: 5px;
 `
 
 const SubHeader = styled.div`

@@ -4,12 +4,6 @@ import styled from 'styled-components'
 import ButtonContainer from './ButtonContainer'
 import { CalendarContext } from '../../CalendarContext'
 
-const Description = styled.p`
-  color: var(--text-dark);
-  margin: 0;
-  padding: 10px 5px;
-`
-
 const Input = styled.input`
   border: 1px solid var(--input-border);
   background: var(--input-background);
@@ -53,8 +47,8 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Description>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong><br />
-      <small>Psst!... podes agregar hasta 3 personas más usando el símbolo <strong>%</strong></small></Description>
+      <p>Por favor ingresá tu usuario de Instagram <u><i>sin arroba</i></u> para anotarte el <strong>{value.niceDay}</strong> a las <strong>{value.selectedTime}hs</strong><br />
+      <small>Psst!... podes agregar hasta 3 personas más usando el símbolo <strong>%</strong></small></p>
       <Input
         type="text"
         value={username}

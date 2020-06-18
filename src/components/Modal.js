@@ -14,7 +14,7 @@ import Onboarding from './modal/Onboarding'
 
 const ModalContainer = styled.div`
   z-index: 999;
-  background: rgba(0, 0, 0, 0.65);
+  background: var(--modal-overlay);
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,7 @@ const ModalCard = styled.div`
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: var(--gradient-top);
   width: 90vw;
   max-width: 350px;
   padding: 0 .8em;

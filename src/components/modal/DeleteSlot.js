@@ -4,12 +4,6 @@ import styled from 'styled-components'
 import ButtonContainer from './ButtonContainer'
 import { CalendarContext } from '../../CalendarContext'
 
-const Description = styled.p`
-  color: var(--text-dark);
-  margin: 0;
-  padding: 10px 5px;
-`
-
 const Input = styled.input`
   border: 1px solid var(--input-border);
   background: var(--input-background);
@@ -53,7 +47,7 @@ const DeleteSlot = (props) => {
 
   return (
     <>
-      <Description>Por favor ingresá el pin para poder liberar el horario <strong>{value.selectedTime}hs</strong> el <strong>{value.niceDay}</strong></Description>
+      <p>Por favor ingresá el pin para poder liberar el horario <strong>{value.selectedTime}hs</strong> el <strong>{value.niceDay}</strong></p>
       <Input
         type="text"
         value={slotPin}
