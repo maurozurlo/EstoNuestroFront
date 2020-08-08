@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from '../components/atoms/Card'
 import ButtonPrimary from '../components/atoms/PrimaryButton'
-import Image from '../assets/img.jpg'
+
+import Spinner from '../components/atoms/Spinner'
+
+// API
+const { getInstagramData } = require('../components/handlers/api');
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -17,10 +21,6 @@ const ArtistImage = styled.img`
   border-radius: 50%;
 `
 
-const InstagramDescription = styled.span`
-  color: var(--text-dark);
-`
-
 const Title = styled.h3`
   text-align: left !important;
   margin: 10px 0 !important;
@@ -33,11 +33,8 @@ const Badge = styled.div`
   display: inline-block;
   padding: 1px 12px;
   margin-top: 10px;
-  margin-right: 10px;
-
-  
+  margin-right: 10px;  
 `
-
 
 const Container = styled.div`
 display: flex;
@@ -51,51 +48,129 @@ button{
 }
 `
 
+const SlotHolder = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 5px 15px;
+`
+
+const Slot = styled.div`
+width: 100%;
+font-weight: 600;
+text-align: center;
+background-color: var(--slot-background);
+border: 2px solid var(--slot-background);
+display: flex;
+justify-content: space-between;
+padding: 10px 0;
+color: var(--slot-text);
+border-radius: 5px;
+cursor: pointer;
+box-sizing: border-box;
+transition: .15s ease all;
+
+:hover{
+  filter: contrast(1.5);
+  border: 2px solid var(--slot-text);
+}
+`
+
 const Instagram = (props) => {
-  const featuredArtist = {
-    username: 'elmairuo',
-    desc: ['haciendo en<br><a class="notranslate" href="/estonuestro/">@estonuestro</a><br><a class="notranslate" href="/sigacalixto/">@sigacalixto</a> <br>manzanas verdes:'],
-    picture: Image,
-    category: ['Música', 'Arte', 'Poesía', 'Otro']
+  const [dataFound, setDataFound] = useState(false);
+  const [dataFetching, setDataFetching] = useState(true);
+  const [data, setData] = useState({
+    featured: {
+      category: []
+    },
+    list: []
+  })
+
+  //Api Fetch
+  useEffect(() => {
+    setDataFetching(true);
+
+    getInstagramData()
+      .then(res => {
+        setDataFetching(false);
+
+        if (res) {
+          setDataFound(true);
+          setData(res);
+        } else {
+          setDataFound(false)
+        }
+      })
+      .catch(error => {
+        setDataFound(false)
+      }
+      )
+  }, []);
+
+  const Badges = (arr) => {
+    arr.map((el, i) => { return <Badge key={i} colorIndex={i}>{el}</Badge> })
   }
 
-  const Description = () => {
-    return (
-      <InstagramDescription dangerouslySetInnerHTML={{ __html: featuredArtist.desc }}></InstagramDescription>
-    )
-  }
+  const t = ['a', 'b']
 
-  const Badges = featuredArtist.category.map((el, i) =>
-    <Badge key={i} colorIndex={i}>{el}</Badge>);
+
 
   return (
     <Wrapper>
       <Card content={<>
         <h2>Lista de Instagrams</h2>
-        <p>Desde <a href="https://instagram.com/estonuestro">@EstoNuestro</a> queremos ayudar a lxs artistas a incrementar su audiencia.<br />
-          En esta lista podés conocer proyectos y seguirlos para que te sigan también.</p>
-          <ButtonContainer>
+        <p>En esta lista podés conocer proyectos y seguirlos para que te sigan también.</p>
+        <ButtonContainer>
           <ButtonPrimary
-        action={() => console.log('here')}
-        primaryText='¡Me quiero sumar!'
-      /></ButtonContainer>
-          </>} />
-      {/* Random Featured*/}
-      <Card content={
-        <>
+            action={() => console.log('here')}
+            primaryText='¡Me quiero sumar!'
+          /></ButtonContainer>
+      </>} />
 
-          <Title>Podrías seguir a <a href={`https://instagram.com/${featuredArtist.username}`}>@{featuredArtist.username}</a></Title>
-          <Container>
-            <iframe 
-            title="Instagram"
-            is="x-frame-bypass"
-            src="https://instagram.com/p/zoelisgris/embed" />
-            <ArtistImage src={featuredArtist.picture} alt={featuredArtist.username} />
-            <Description />
-          </Container>
-          {Badges}
+      {dataFetching && !dataFound &&
+        <Spinner />
+      }
+
+      {!dataFetching && dataFound &&
+        <>
+          <Card content={
+            <>
+              <Title>Podrías seguir a <a href={`https://instagram.com/${data.featured.username}`}>@{data.featured.username}</a></Title>
+              <Container>
+                <ArtistImage src={`data:image/jpeg;base64, ${data.featured.image}`} alt={data.featured.username} />
+                <span>
+                  <pre><strong>{data.featured.fullname}</strong> <br></br>{data.featured.description}
+
+                  </pre>
+                  <a href={data.featured.url}>{data.featured.url}</a>
+                  <br></br>
+                  {data.featured.category.map((el, i) => 
+                  { return <Badge key={i} colorIndex={i}>{el}</Badge> })}
+
+                </span>
+
+
+              </Container>
+
+            </>} />
+          <div>
+            {data.list.map(element => {
+              return <SlotHolder key={element.username}>
+                <Slot>
+                  {element.username}
+                  <span>
+                  {element.category.map((el, i) => 
+                  { return <Badge key={i} colorIndex={i}>{el}</Badge> })}
+                  </span>
+                </Slot>
+              </SlotHolder>
+            })}
+          </div>
         </>
-      } />
+      }
+
+      {!dataFetching && !dataFound &&
+        <>Explotó todo a la mierda...</>
+      }
     </Wrapper>
   )
 }

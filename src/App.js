@@ -52,7 +52,9 @@ const Header = styled.header`
     max-width: 200px;
   }
 `
-const trackingId = "UA-166030746-1";
+
+//const trackingId = "UA-166030746-1";
+const trackingId = "#"
 ReactGA.initialize(trackingId)
 const browserHistory = createBrowserHistory()
 browserHistory.listen((location, action) => {
@@ -62,7 +64,7 @@ browserHistory.listen((location, action) => {
 const App = () => {
   //GA
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    //ReactGA.pageview(window.location.pathname + window.location.search)
   }, [])
   //Get local storage
   const getLocalStorage = () => {

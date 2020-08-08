@@ -92,11 +92,13 @@ a{
   color: var(--button-primary);
 }
 
-p{
+p, pre{
   color: var(--text-dark);
+  font-family: inherit;
   margin: 0;
-  padding: 10px 5px;
+  padding: 5px 5px;
 }
+
 
 @keyframes fadeIn {
   from {opacity:0;}
