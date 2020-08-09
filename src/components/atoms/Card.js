@@ -2,11 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--card-background);
     border: 1px solid var(--button-outline-hover);
     padding: 1em;
     border-radius: var(--border-radius);
-    margin-bottom: 1em;
+    margin-bottom: 8px;
 
     h2, h3{
       color: var(--text-dark);

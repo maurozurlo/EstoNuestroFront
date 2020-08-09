@@ -35,10 +35,22 @@ const removeUser = async (payload) => {
 //Instagrams
 const getInstagramData = async () => {
   try {
-    const response = await axios.get(`${instagramEndpoint}/testdata`);
+    const response = await axios.get(`${instagramEndpoint}/all`);
     return response.data;
   } catch (error) {
     return false;
+  }
+}
+
+const sendInstagramData = async (payload) =>{
+  try{
+    const response = await axios.post(`${instagramEndpoint}/register`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }});
+    return [true, response.data];
+  } catch (error) {
+    return [false, error.response.data]
   }
 }
 
@@ -46,5 +58,6 @@ export {
   getDate,
   addUser,
   removeUser,
-  getInstagramData
+  getInstagramData,
+  sendInstagramData
 }

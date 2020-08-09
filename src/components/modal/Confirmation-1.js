@@ -44,8 +44,7 @@ const Confirmation1 = (props) => {
 "permalink": "01-05-2020",
 "date": "01-05-2020",
 "time": "17",
-"username": "elmiauro",
-"pin": "1234"
+"username": "elmiauro"
 } */
 
   const [pinFound, setPinFound] = useState(false);

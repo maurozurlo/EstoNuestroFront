@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from '../components/atoms/Card'
-import ButtonPrimary from '../components/atoms/PrimaryButton'
+import PrimaryLinkBtn from '../components/atoms/PrimaryLinkBtn'
 
 import Spinner from '../components/atoms/Spinner'
 
@@ -15,15 +15,53 @@ const Wrapper = styled.div`
   padding: 0 10px;
 `
 
-const ArtistImage = styled.img`
-  width: 100px;
-  margin-right: 20px;
+
+const Description = styled.div`
+margin-left:8px;
+
+strong{
+  color: var(--text-dark);
+}
+pre,a{
+  font-size: .8em;
+  padding: 0;
+}
+strong, a{
+  font-weight: 600;
+}
+`
+
+const HighlightCard = styled.div`
+display: flex;
+align-items: center;
+flex-direction: column;
+
+div:nth-child(1){
+  display: flex;
+  align-items:center;
+  @media (min-width: 650px) {
+    justify-content: space-between;
+  }
+  @media (max-width: 360px) {
+      flex-direction: column;
+    }
+}
+
+img{
+  width: 80px;
   border-radius: 50%;
+}
+`
+
+const BadgeContainer = styled.div`
+  display: flex;
+    justify-content: flex-start;
+    width: 100%;
 `
 
 const Title = styled.h3`
+  font-weight: 400;
   text-align: left !important;
-  margin: 10px 0 !important;
 `
 
 const Badge = styled.div`
@@ -36,12 +74,8 @@ const Badge = styled.div`
   margin-right: 10px;  
 `
 
-const Container = styled.div`
-display: flex;
-align-items: center;
-`
-
 const ButtonContainer = styled.div`
+margin-top: 6px;
 button{
   display: block; 
   margin: 0 auto;
@@ -51,28 +85,50 @@ button{
 const SlotHolder = styled.div`
   display: flex;
   align-items: center;
-  margin: 5px 15px;
+  flex-direction: column;
+  margin-bottom:16px;
+
+  h3{
+    color: var(--text-dark);
+    font-weight:600;
+    margin: 0;
+    margin-bottom: 8px;
+  }
 `
 
 const Slot = styled.div`
 width: 100%;
 font-weight: 600;
 text-align: center;
-background-color: var(--slot-background);
-border: 2px solid var(--slot-background);
+background-color: var(--button-outline-hover);
 display: flex;
 justify-content: space-between;
-padding: 10px 0;
-color: var(--slot-text);
-border-radius: 5px;
-cursor: pointer;
+padding: 10px 1em;
+border-radius: 3px;
 box-sizing: border-box;
-transition: .15s ease all;
+margin-bottom:3px;
+`
 
-:hover{
-  filter: contrast(1.5);
-  border: 2px solid var(--slot-text);
-}
+const Button = styled.button`
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  min-width: 90px;
+  padding: 10px 30px;
+`
+
+const ButtonOutline = styled(Button)`
+  border: 1px solid var(--text-light);
+  background-color: rgba(0,0,0,0);
+  color: var(--input-background);
+  :hover{
+    cursor: pointer;
+    border-color: var(--button-outline-hover);
+    background-color: var(--button-outline-hover);
+  }
 `
 
 const Instagram = (props) => {
@@ -106,22 +162,14 @@ const Instagram = (props) => {
       )
   }, []);
 
-  const Badges = (arr) => {
-    arr.map((el, i) => { return <Badge key={i} colorIndex={i}>{el}</Badge> })
-  }
-
-  const t = ['a', 'b']
-
-
-
   return (
     <Wrapper>
       <Card content={<>
         <h2>Lista de Instagrams</h2>
-        <p>En esta lista podés conocer proyectos y seguirlos para que te sigan también.</p>
+        <p>En esta lista podés conocer proyectos y seguirlos para que te sigan a vos también.</p>
         <ButtonContainer>
-          <ButtonPrimary
-            action={() => console.log('here')}
+          <PrimaryLinkBtn
+            location="/instagram/register"
             primaryText='¡Me quiero sumar!'
           /></ButtonContainer>
       </>} />
@@ -135,36 +183,45 @@ const Instagram = (props) => {
           <Card content={
             <>
               <Title>Podrías seguir a <a href={`https://instagram.com/${data.featured.username}`}>@{data.featured.username}</a></Title>
-              <Container>
-                <ArtistImage src={`data:image/jpeg;base64, ${data.featured.image}`} alt={data.featured.username} />
-                <span>
-                  <pre><strong>{data.featured.fullname}</strong> <br></br>{data.featured.description}
-
-                  </pre>
-                  <a href={data.featured.url}>{data.featured.url}</a>
-                  <br></br>
-                  {data.featured.category.map((el, i) => 
-                  { return <Badge key={i} colorIndex={i}>{el}</Badge> })}
-
-                </span>
-
-
-              </Container>
-
+                <HighlightCard>
+                <div>
+                  <div>
+                  <img src={`data:image/jpeg;base64, ${data.featured.image}`} alt={data.featured.username} />
+                  </div>
+                  <Description>
+                    <strong>{data.featured.fullname}</strong>
+                    <pre>{data.featured.description}</pre>
+                    <a href={data.featured.url}>{data.featured.url}</a>
+                  </Description>
+                </div>
+                <BadgeContainer>
+                {//data.featured.category.map((el, i) => 
+                 // { return <Badge key={i} colorIndex={i}>{el}</Badge> })
+                }
+                </BadgeContainer>
+              </HighlightCard>
             </>} />
-          <div>
-            {data.list.map(element => {
-              return <SlotHolder key={element.username}>
-                <Slot>
-                  {element.username}
-                  <span>
-                  {element.category.map((el, i) => 
-                  { return <Badge key={i} colorIndex={i}>{el}</Badge> })}
-                  </span>
+
+            <SlotHolder>
+              <h3>{data.list.length + 1} anotadxs</h3>
+            {data.list.map(element =>{
+              return(
+                <Slot key={element.username}>
+                    
+                    <a href={`https://instagram.com/${element.username}`}>@{element.username}</a>
+                    <div>
+                    {//element.category.map(cat => {
+                     //   return(
+                     //     <span key={cat}>{cat[0]}</span>
+                     //   )
+                    //})
+                    }
+                    </div>
                 </Slot>
-              </SlotHolder>
+              )
             })}
-          </div>
+          </SlotHolder>
+          <ButtonOutline>Quiero salir de la lista</ButtonOutline>
         </>
       }
 

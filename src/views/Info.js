@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 650px;
   padding: 0 10px;
+  margin-bottom: 24px;
 `
 
 const Instructions = styled.ol`
