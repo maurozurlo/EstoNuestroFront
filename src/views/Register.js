@@ -38,7 +38,7 @@ border-radius: var(--border-radius);
 margin-bottom: 10px;
 padding-left: 10px;
 font-size: 14px;
-width: 100%; 
+width: 100%;
 `
 
 const ErrorMsg = styled.p`
@@ -53,6 +53,7 @@ const ErrorMsg = styled.p`
 
 const ImagePlaceholder = styled.div`
     display: block;
+    position: relative;
     margin: 16px auto;
     border-radius: 50%;
     width: 100px;
@@ -73,6 +74,15 @@ const ImagePlaceholder = styled.div`
         position: absolute;
         z-index: -1;
     }
+
+    img{
+        pointer-events:none;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
 `
 
 const CheckBoxContainer = styled.div`
@@ -87,9 +97,7 @@ const Register = (props) => {
         image: null,
         category: []
     })
-
     const [modal, setModal] = useState(false)
-    
     const [error, setError] = useState('')
 
     const checkUsernameLength = () => {
@@ -104,17 +112,21 @@ const Register = (props) => {
     const handleUserInput = (e) => {
         const _user = e.target.value.replace(/[^a-zA-Z0-9-_.%]/g, "")
         setPayload({...payload,username:_user})
-        
+
     }
 
     const handleFileInput = (e) =>{
         const file = e.target.files[0];
+        setImageSrc(URL.createObjectURL(file))
         console.log(file)
         setPayload({...payload,image:file})
     }
 
+    const categories = ['Música','Arte','Poesía','Otro'];
     const handleCategoryInput = (e) =>{
         const cat = e.target.id;
+
+        const selectedCategories = payload.category
         const i = selectedCategories.indexOf(cat);
         if(i === -1){
             selectedCategories.push(cat);
@@ -124,16 +136,15 @@ const Register = (props) => {
         setPayload({...payload,category:selectedCategories})
     }
 
+    const [imageSrc,setImageSrc] = useState('data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=')
+
     const displayModal = () =>{
         if(checkUsernameLength()){
             setModal(true)
         }
     }
 
-    const categories = ['Música','Arte','Poesía','Otro'];
-    const selectedCategories = []
-
-    return (    
+    return (
         <Wrapper>
             {modal && <InstaRegister payload={payload}/>}
             <Card content={<>
@@ -154,7 +165,8 @@ const Register = (props) => {
                     Podés elegir la foto que querés que aparezca cuando salga el tuyo apretando acá:</p>
                 <ImagePlaceholder>
                     <label htmlFor="file"></label>
-                    <input type="file" id="file" onChange={handleFileInput}></input>
+                    <input type="file" id="file" accept="image/*" onChange={handleFileInput}></input>
+                    <img src={imageSrc} alt="Previsualización" />
                 </ImagePlaceholder>
                 <h4>Categorías</h4>
                 <p>Elegí las que más representan tu perfil:</p>
@@ -169,7 +181,7 @@ const Register = (props) => {
                 })}
                 </CheckBoxContainer>
                 <PrimaryButton
-                primaryText="Sumarme" 
+                primaryText="Sumarme"
                 action={displayModal}
                 />
             </>} />

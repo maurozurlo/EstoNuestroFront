@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from '../components/atoms/Card'
 import PrimaryLinkBtn from '../components/atoms/PrimaryLinkBtn'
-
+import {truncateString} from '../helpers/global'
 import Spinner from '../components/atoms/Spinner'
-
+import InstaQuit from '../components/modal/Insta-Quit'
+import missingImage from '../assets/no-image.svg'
 // API
 const { getInstagramData } = require('../components/handlers/api');
 
@@ -29,9 +30,15 @@ pre,a{
 strong, a{
   font-weight: 600;
 }
+a{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 `
 
 const HighlightCard = styled.div`
+margin-top: 8px;
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -54,9 +61,12 @@ img{
 `
 
 const BadgeContainer = styled.div`
-  display: flex;
-    justify-content: flex-start;
-    width: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  column-gap: 4px;
+  grid-auto-flow: column;
+  margin-top: 8px;
 `
 
 const Title = styled.h3`
@@ -70,14 +80,13 @@ const Badge = styled.div`
   font-size: .8em;
   display: inline-block;
   padding: 1px 12px;
-  margin-top: 10px;
-  margin-right: 10px;  
+  max-width: 100px;
 `
 
 const ButtonContainer = styled.div`
-margin-top: 6px;
+margin-top: 8px;
 button{
-  display: block; 
+  display: block;
   margin: 0 auto;
 }
 `
@@ -103,6 +112,7 @@ text-align: center;
 background-color: var(--button-outline-hover);
 display: flex;
 justify-content: space-between;
+align-items: center;
 padding: 10px 1em;
 border-radius: 3px;
 box-sizing: border-box;
@@ -162,7 +172,29 @@ const Instagram = (props) => {
       )
   }, []);
 
+  const returnCategoryData = (val) =>{
+    console.log(val)
+    if(val.length > 0){
+      const values = val.split(',')
+
+      const _categories = [['🎵','Música'], ['🖌️','Arte'], ['📄','Poesía'], ['👽','Otro']]
+      const categories = []
+      values.forEach(element => categories.push(_categories[parseInt(element, 10)]))
+      return categories
+    }
+    return [[0,0]]
+  }
+
+  const [displayModal, setDisplayModal] = useState(false)
+
+  const changeModalState = () =>{
+    setDisplayModal(!displayModal)
+  }
+
+
   return (
+    <>
+    {displayModal && <InstaQuit changeModalState={changeModalState} />}
     <Wrapper>
       <Card content={<>
         <h2>Lista de Instagrams</h2>
@@ -186,18 +218,18 @@ const Instagram = (props) => {
                 <HighlightCard>
                 <div>
                   <div>
-                  <img src={`data:image/jpeg;base64, ${data.featured.image}`} alt={data.featured.username} />
+                  <img src={
+                    data.featured.image ?`data:image/jpeg;base64, ${data.featured.image}` : missingImage} alt={data.featured.username} />
                   </div>
                   <Description>
                     <strong>{data.featured.fullname}</strong>
                     <pre>{data.featured.description}</pre>
-                    <a href={data.featured.url}>{data.featured.url}</a>
+                    <a href={data.featured.url}>{truncateString(data.featured.url,30)}</a>
                   </Description>
                 </div>
                 <BadgeContainer>
-                {//data.featured.category.map((el, i) => 
-                 // { return <Badge key={i} colorIndex={i}>{el}</Badge> })
-                }
+                {returnCategoryData(data.featured.category).map((el, i) =>
+                  { return <Badge key={i} colorIndex={i}>{`${el[0]} ${el[1]}`}</Badge> })}
                 </BadgeContainer>
               </HighlightCard>
             </>} />
@@ -207,21 +239,21 @@ const Instagram = (props) => {
             {data.list.map(element =>{
               return(
                 <Slot key={element.username}>
-                    
+
                     <a href={`https://instagram.com/${element.username}`}>@{element.username}</a>
                     <div>
-                    {//element.category.map(cat => {
-                     //   return(
-                     //     <span key={cat}>{cat[0]}</span>
-                     //   )
-                    //})
+                    {returnCategoryData(element.category).map(cat => {
+                        return(
+                          <span key={cat}>{cat[0]}</span>
+                        )
+                    })
                     }
                     </div>
                 </Slot>
               )
             })}
           </SlotHolder>
-          <ButtonOutline>Quiero salir de la lista</ButtonOutline>
+          <ButtonOutline onClick={() => changeModalState()}>Quiero salir de la lista</ButtonOutline>
         </>
       }
 
@@ -229,6 +261,7 @@ const Instagram = (props) => {
         <>Explotó todo a la mierda...</>
       }
     </Wrapper>
+    </>
   )
 }
 
