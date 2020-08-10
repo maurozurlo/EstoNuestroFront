@@ -174,13 +174,15 @@ const Instagram = (props) => {
 
   const returnCategoryData = (val) =>{
     console.log(val)
-    if(val.length > 0){
-      const values = val.split(',')
+    if(val){
+      if(val.length > 0){
+        const values = val.split(',')
 
-      const _categories = [['🎵','Música'], ['🖌️','Arte'], ['📄','Poesía'], ['👽','Otro']]
-      const categories = []
-      values.forEach(element => categories.push(_categories[parseInt(element, 10)]))
-      return categories
+        const _categories = [['🎵','Música'], ['🖌️','Arte'], ['📄','Poesía'], ['👽','Otro']]
+        const categories = []
+        values.forEach(element => categories.push(_categories[parseInt(element, 10)]))
+        return categories
+      }
     }
     return [[0,0]]
   }
@@ -210,7 +212,7 @@ const Instagram = (props) => {
         <Spinner />
       }
 
-      {!dataFetching && dataFound &&
+      {!dataFetching && dataFound && data.featured.username &&
         <>
           <Card content={
             <>
