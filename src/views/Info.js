@@ -1,27 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
+import Card from '../components/atoms/Card'
 
 const Wrapper = styled.div`
-  background: rgba(255, 255, 255, 0.3);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
   margin: 0 auto;
   width: 100%;
   max-width: 650px;
   padding: 0 10px;
-  p {
-    color: var(--text-dark);
-    font-weight: 500;
-    font-size: 1em;
-    background: var(--text-light);
-    border: 1px solid #5f5f5f7a;
-    padding: 1em;
-    border-radius: 4px;
-  }
-  ol {
+  margin-bottom: 24px;
+`
+
+const Instructions = styled.ol`
     counter-reset: item;
     list-style: none;
-    
     padding-left: 40px;
+    color: var(--text-dark);
     li {
       margin: 0 0 0.5rem 0;
       counter-increment: item;
@@ -45,29 +38,19 @@ const Wrapper = styled.div`
         text-align: center;
       }
     }
-  }
-
-  h2{
-      color: var(--text-dark);
-      font-size: 1.3em;
-      text-align: center;
-    }
-
-    h3{
-      margin: 0;
-    }
 `
 
 const Info = (props) => {
   return (
     <Wrapper>
-        <p><a href="https://instagram.com/estonuestro">@EstoNuestro</a> es un espacio creado a modo de “escenario virtual” en Instagram, donde lxs artistas pueden sumarse a mostrar su arte día a día, y contando con falicilitadorxs en el grupo dispuestxs a ayudarles con cualquier duda.</p>
-        <p>
-          <h3>Cómo</h3>
-        Los vivos se transmiten desde la cuenta @estonuestro, cada artista cuenta con la hora que da instagram para usar a gusto suyo, pueden invitar a más gente a su vivo, pero sepan que si comparten un vivo a distancia y quieren tocar en conjunto puede haber delay que quizás no noten en el momento de tocar, pero que pueden sentirlos lxs que estén viendo la transmisión
-        </p>
+      <Card content={<><p className='centered'><a href="https://instagram.com/estonuestro">@EstoNuestro</a> es un espacio creado a modo de “escenario virtual” en Instagram, donde lxs artistas pueden sumarse a mostrar su arte día a día, y contando con falicilitadorxs en el grupo dispuestxs a ayudarles con cualquier duda.</p>
+        </>}/>
+      <Card content={
+        <><h3>Cómo</h3>
+          <p>Los vivos se transmiten desde la cuenta @estonuestro, cada artista cuenta con la hora que da instagram para usar a gusto suyo, pueden invitar a más gente a su vivo, pero sepan que si comparten un vivo a distancia y quieren tocar en conjunto puede haber delay que quizás no noten en el momento de tocar, pero que pueden sentirlos lxs que estén viendo la transmisión</p></>} />
+      <Card content={<>
         <h3>Instrucciones</h3>
-        <ol>
+        <Instructions>
           <li>Pueden hacer vivos entre más de un artista. La forma de anotarse es usando un comodin <strong>%</strong> para los nombres, por ejemplo: tuusuario<strong>%</strong>otrousuario<strong>%</strong>otrousuario...</li>
           <li>Podés participar <strong>todas las veces que quieras</strong> mientras tengas mínimo un bloque de por medio entre cada transmisión. (exceptuando a los vivos realizados entre más de dos personas)</li>
           <li>Una vez <strong>anotadx, un día antes de tocar, pasá una foto tuya</strong> por mensaje privado de Instagram a @estonuestro para que podamos publicarla junto al flyer, éste se publicará (junto a las fotografías recibidas) siempre tres horas antes de que comience el primer directo del día.</li>
@@ -78,14 +61,16 @@ const Info = (props) => {
           <li>Desde <strong>@EstoNuestro</strong> nos encargaremos de compartir las historias en las que nos etiqueten lxs artistas que hagan vivos en el día, pedimos <strong>paciencia</strong> al respecto ya que no podremos difundir mientras hayan directos en curso.</li>
           <li><strong>Si vas a poner reproducir música</strong> desde internet mientras hacés el vivo, tené en cuenta que no tenga copyright, porque sino instagram cancelará tu directo y no permitirá hacer más de los mismos por un tiempo.</li>
           <li>Si querés seguirnos y que te sigamos a tu cuenta personal, <a href="https://docs.google.com/document/d/1Ki6IyE-V-wQQJtWdg3P_RxzJqMhJekb2xHi6dPyd5uY/edit?usp=sharing">hacé click acá!</a> seguinos y agregá tu nombre al final</li>
-        </ol>
-        <p>Si tenés alguna otra duda, por favor no dejes de contactarnos por mensaje directo a <a href="https://instagram.com/estonuestro">@EstoNuestro</a> o en el grupo de WhatsApp.
-        <br /><br />
-        Como alternativa podes contactarnos directamente a alguno de los tres organizadores:<br />
-         <a href="https://instagram.com/zoelisgris">Zoe Lis</a>, <a href="https://instagram.com/leia_oriana">Leia Oriana</a> y <a href="https://instagram.com/elmiauro">Mauro Zurlo</a>
-        </p>
-
-        <h2>Desde todo el equipo de @EstoNuestro esperamos que tengas una experiencia muy amable :)</h2>
+        </Instructions></>} />
+      <Card content={
+        <><p>Si tenés alguna otra duda, por favor no dejes de contactarnos por mensaje directo a <a href="https://instagram.com/estonuestro">@EstoNuestro</a> o en el grupo de WhatsApp.</p>
+          <p>
+            Como alternativa podes contactarnos directamente a alguno de los tres organizadores:<br />
+            <a href="https://instagram.com/zoelisgris">Zoe Lis</a>, <a href="https://instagram.com/leia_oriana">Leia Oriana</a> y <a href="https://instagram.com/elmiauro">Mauro Zurlo</a>
+          </p></>} />
+      <Card content={
+        <h2>Desde todo el equipo de <a href="https://instagram.com/estonuestro">@EstoNuestro</a> esperamos que tengas una experiencia muy amable :)</h2>
+      } />
     </Wrapper>
   )
 

@@ -16,6 +16,8 @@ import Navigation from './components/particles/Navigation'
 //Views
 import Day from './views/Day'
 import Info from './views/Info'
+import Instagram from './views/Instagram'
+import Register from './views/Register'
 //Context
 import { CalendarContext } from './CalendarContext'
 //Modal
@@ -51,6 +53,7 @@ const Header = styled.header`
     max-width: 200px;
   }
 `
+
 const trackingId = "UA-166030746-1";
 ReactGA.initialize(trackingId)
 const browserHistory = createBrowserHistory()
@@ -103,6 +106,12 @@ const App = () => {
           )} />
           <Route exact path="/info">
             <Info />
+          </Route>
+          <Route exact path="/instagram/register">
+            <Register />
+          </Route>
+          <Route exact path="/instagram">
+            <Instagram />
           </Route>
           <Route path="/dia/:date">
             <CalendarContext.Provider value={providerValue}>

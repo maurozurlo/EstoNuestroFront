@@ -1,14 +1,13 @@
 const axios = require('axios');
 const baseUrl = 'https://estonuestro.herokuapp.com';
 //const baseUrl = 'http://localhost:5000';
+const dateEndpoint = `${baseUrl}/api/day`
+const instagramEndpoint = `${baseUrl}/api/instagram`
 
-
+//Fechas
 const getDate = async (date) => {
-  const route = `${baseUrl}/api/day`;
-
   try {
-    // fetch data from a url endpoint
-    const response = await axios.get(`${route}/${date}`);
+    const response = await axios.get(`${dateEndpoint}/${date}`);
     return response.data;
   } catch (error) {
     return false;
@@ -16,10 +15,8 @@ const getDate = async (date) => {
 }
 
 const addUser = async (payload) => {
-  const route = `${baseUrl}/api/day/add`;
-
   try {
-    const response = await axios.post(`${route}`, payload);
+    const response = await axios.post(`${dateEndpoint}/add`, payload);
     return response;
   } catch (error) {
     return error.response.data.msg;
@@ -27,18 +24,40 @@ const addUser = async (payload) => {
 }
 
 const removeUser = async (payload) => {
-  const route = `${baseUrl}/api/day/remove`;
-
   try {
-    const response = await axios.delete(`${route}`, {data: payload});
+    const response = await axios.delete(`${dateEndpoint}/remove`, {data: payload});
     return response;
   } catch (error) {
     return error.response.data.msg;
   }
 }
 
+//Instagrams
+const getInstagramData = async () => {
+  try {
+    const response = await axios.get(`${instagramEndpoint}/all`);
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+}
+
+const sendInstagramData = async (payload) =>{
+  try{
+    const response = await axios.post(`${instagramEndpoint}/register`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }});
+    return [true, response.data];
+  } catch (error) {
+    return [false, error.response.data]
+  }
+}
+
 export {
   getDate,
   addUser,
-  removeUser
+  removeUser,
+  getInstagramData,
+  sendInstagramData
 }

@@ -2,41 +2,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 //Components
 import Spinner from '../atoms/Spinner'
+import ButtonPrimary from '../atoms/PrimaryButton'
 import ButtonContainer from './ButtonContainer'
 //Context
 import { CalendarContext } from '../../CalendarContext'
 // API
 const { removeUser } = require('../handlers/api');
-
-const Description = styled.p`
-  color: var(--text-dark);
-  margin: 0;
-  padding: 10px 5px;
-`
-
-const Button = styled.button`
-  font-weight: 600;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  min-width: 90px;
-  padding: 10px 80px;
-`
-
-const ButtonPrimary = styled(Button)`
-  background-color: var(--button-primary);
-  border: var(--button-primary);
-  color: white;
-  :hover{
-    filter: contrast(1.5);
-    cursor: pointer;
-  }
-  :disabled,
-  [disabled]{
-    border: 1px solid #939393;
-    background-color:#f5f5f5;
-    color: #939393;
-  }
-`
 
 const Wrapper = styled.div`
   display: flex;
@@ -107,10 +78,8 @@ const DeleteSlot1 = (props) => {
       )}
       {!pinFetching && pinFound &&
         <>
-          <Description>
-            Perfectirijillo! el horario fue liberado correctamente.
-          </Description>
-          <ButtonPrimary onClick={() => reloadPage()}>Aceptar</ButtonPrimary>
+          <p>Perfectirijillo! el horario fue liberado correctamente.</p>
+          <ButtonPrimary action={() => reloadPage()} primaryText="Aceptar" />
         </>}
       {!pinFetching && !pinFound &&
         <>

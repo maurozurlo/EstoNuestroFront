@@ -15,18 +15,19 @@ import { CalendarContext } from '../CalendarContext'
 const { getDate } = require('../components/handlers/api');
 
 const Wrapper = styled.div`
-background: rgba(255,255,255,0.3);
-border-bottom: 2px solid rgba(255,255,255,0.4);
+background: var(--card-background);
 margin: 0 auto;
 width: 100%;
 max-width: 650px;
 text-align: center;
 box-sizing: border-box;
 font-size: .8em;
+padding: 10px 0;
+margin-bottom: 24px;
 `
 
 const SubHeader = styled.div`
-margin: 0 auto;
+margin: 16px auto;
 width: 90%;
 max-width: 650px;
 text-align: center;
@@ -34,7 +35,6 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 font-weight: bold;
-padding: 5px 0;
 
 p{
   color: var(--text-dark);

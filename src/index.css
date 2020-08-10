@@ -1,3 +1,4 @@
+/* Light-mode 
 :root{
   --primary: #30769C;
   --gradient-top: #ffffff;
@@ -10,6 +11,8 @@
   --input-border: #22485C;
   --shadow-dark: #191919;
 
+  --modal-overlay: rgba(0, 0, 0, 0.65);
+
   --slot-background:#77FFC0;
   --slot-text: #107A4B;
 
@@ -17,6 +20,7 @@
   --hover-icon: #30769C;
 
   --button-primary: #30769C;
+  --button-primary-text: #F9FAFB;
   --button-outline-hover: #dceaff;
 
   --border-radius: 3px;
@@ -27,7 +31,46 @@
 
   --spinner: #77FFC0;
 }
+*/
 
+:root{
+  --primary: #4dc0ff;
+  --gradient-top: #000;
+  --gradient-bottom: #000;
+  --background-light: #ffffff;
+  --text-dark: #F9FAFB;
+  --text-medium: #22485C;
+  --text-light: #191919;
+  --input-background: #FBFBFB;
+  --input-border: #22485C;
+  --shadow-dark: #191919;
+
+  --modal-overlay: rgba(255, 255, 255, 0.35);
+  --card-background: rgba(255, 255, 255, 0.1);
+
+  --slot-background:#56ffb2;
+  --slot-text: #024a2a;
+
+  --icon: #FBFBFB;
+  --hover-icon: #4dc0ff;
+
+  --button-primary: #4dc0ff;
+  --button-primary-text: #191919;
+  --button-outline-hover: #383838;
+
+  --border-radius: 3px;
+
+  --pin-holder: #383838;
+
+  --error-message: #ff3f3f;
+
+  --spinner: #77FFC0;
+
+  --badge-0: #4dc0ff;
+  --badge-1: #43e5f5;
+  --badge-2: #33cc88;
+  --badge-3: #16f592;
+}
 
 *{
   box-sizing: border-box;
@@ -41,14 +84,26 @@ html{
 
 body {
   margin: 0;
-  font-family: 'Poppins', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+a{
+  color: var(--button-primary);
+}
+
+p, pre{
+  color: var(--text-dark);
+  font-family: inherit;
+  margin: 0;
+  padding: 5px 5px;
+}
+
+
 @keyframes fadeIn {
-  from {background-color: rgba(0, 0, 0, 0);}
-  to {background-color: rgba(0, 0, 0, 0.65);}
+  from {opacity:0;}
+  to {opacity: 1;}
 }
 
 
@@ -63,4 +118,77 @@ body {
     box-shadow: 0 -2em;
     height: 5em;
   }
+}
+
+/* Custom Checkbox */
+
+/* Customize the label (the container) */
+.checkcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: .9em;
+  color: var(--text-dark);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--gradient-bottom);
+  border: 1px solid var(--button-outline-hover);
+  border-radius: var(--border-radius);
+}
+
+/* On mouse-over, add a grey background color */
+.checkcontainer:hover input ~ .checkmark {
+  background-color: var(--button-outline-hover);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkcontainer input:checked ~ .checkmark {
+  background-color: var(--primary);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkcontainer .checkmark:after {
+  left: 8px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--button-primary-text);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
