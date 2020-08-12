@@ -60,7 +60,7 @@ const Info = (props) => {
           <li>El feed de la cuenta solo se usará para <strong>publicar flyers de los directos y videos de personas que no puedan hacer transmisiones</strong> en vivo por motivos de fuerza mayor.</li>
           <li>Desde <strong>@EstoNuestro</strong> nos encargaremos de compartir las historias en las que nos etiqueten lxs artistas que hagan vivos en el día, pedimos <strong>paciencia</strong> al respecto ya que no podremos difundir mientras hayan directos en curso.</li>
           <li><strong>Si vas a poner reproducir música</strong> desde internet mientras hacés el vivo, tené en cuenta que no tenga copyright, porque sino instagram cancelará tu directo y no permitirá hacer más de los mismos por un tiempo.</li>
-          <li>Si querés seguirnos y que te sigamos a tu cuenta personal, <a href="https://docs.google.com/document/d/1Ki6IyE-V-wQQJtWdg3P_RxzJqMhJekb2xHi6dPyd5uY/edit?usp=sharing">hacé click acá!</a> seguinos y agregá tu nombre al final</li>
+          <li>Si querés seguirnos y que te sigamos a tu cuenta personal, <a href="/instagram">hacé click acá!</a> seguinos y agregá tu nombre al final</li>
         </Instructions></>} />
       <Card content={
         <><p>Si tenés alguna otra duda, por favor no dejes de contactarnos por mensaje directo a <a href="https://instagram.com/estonuestro">@EstoNuestro</a> o en el grupo de WhatsApp.</p>

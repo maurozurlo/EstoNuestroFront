@@ -53,10 +53,16 @@ div:nth-child(1){
       flex-direction: column;
     }
 }
+`
+
+const ImageContainer = styled.div`
+width: 100px;
+height: 100px;
+border-radius: 50%;
+overflow: hidden;
 
 img{
-  width: 80px;
-  border-radius: 50%;
+  width: 100%;
 }
 `
 
@@ -219,10 +225,10 @@ const Instagram = (props) => {
               <Title>Podrías seguir a <a href={`https://instagram.com/${data.featured.username}`}>@{data.featured.username}</a></Title>
                 <HighlightCard>
                 <div>
-                  <div>
+                  <ImageContainer>
                   <img src={
                     data.featured.image ?`data:image/jpeg;base64, ${data.featured.image}` : missingImage} alt={data.featured.username} />
-                  </div>
+                  </ImageContainer>
                   <Description>
                     <strong>{data.featured.fullname}</strong>
                     <pre>{data.featured.description}</pre>
