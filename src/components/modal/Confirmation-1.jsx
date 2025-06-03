@@ -5,7 +5,7 @@ import ButtonPrimary from '../atoms/PrimaryButton'
 //Context
 import { CalendarContext } from '../../CalendarContext'
 // API
-const { addUser } = require('../handlers/api');
+import { addUser } from '../handlers/api'
 
 const PinHolder = styled.div`
   font-size: 2em;
@@ -117,7 +117,7 @@ const Confirmation1 = (props) => {
           <p>
             {checkIfMoreThanOneUser()}
             <strong> {value.niceDay}</strong> a las <strong>{value.selectedTime}hs.</strong><br />
-        Por favor <strong>guardá tu pin</strong>:</p>
+            Por favor <strong>guardá tu pin</strong>:</p>
           <PinHolder>{pin}</PinHolder>
           <p>Guardar el pin te sirve en caso de que quieras liberar este horario.</p>
           <ButtonPrimary action={() => props.action(['Una última cosa!', 2])} primaryText="Aceptar" />

@@ -40,11 +40,11 @@ const Instructions = styled.ol`
     }
 `
 
-const Info = (props) => {
+const Info = () => {
   return (
     <Wrapper>
       <Card content={<><p className='centered'><a href="https://instagram.com/estonuestro">@EstoNuestro</a> es un espacio creado a modo de “escenario virtual” en Instagram, donde lxs artistas pueden sumarse a mostrar su arte día a día, y contando con falicilitadorxs en el grupo dispuestxs a ayudarles con cualquier duda.</p>
-        </>}/>
+      </>} />
       <Card content={
         <><h3>Cómo</h3>
           <p>Los vivos se transmiten desde la cuenta @estonuestro, cada artista cuenta con la hora que da instagram para usar a gusto suyo, pueden invitar a más gente a su vivo, pero sepan que si comparten un vivo a distancia y quieren tocar en conjunto puede haber delay que quizás no noten en el momento de tocar, pero que pueden sentirlos lxs que estén viendo la transmisión</p></>} />

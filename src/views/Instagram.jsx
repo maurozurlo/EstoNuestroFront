@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from '../components/atoms/Card'
 import PrimaryLinkBtn from '../components/atoms/PrimaryLinkBtn'
-import {truncateString} from '../helpers/global'
+import { truncateString } from '../helpers/global'
 import Spinner from '../components/atoms/Spinner'
 import InstaQuit from '../components/modal/Insta-Quit'
 import missingImage from '../assets/no-image.svg'
 // API
-const { getInstagramData } = require('../components/handlers/api');
+import { getInstagramData } from '../components/handlers/api'
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -147,7 +147,7 @@ const ButtonOutline = styled(Button)`
   }
 `
 
-const Instagram = (props) => {
+const Instagram = () => {
   const [dataFound, setDataFound] = useState(false);
   const [dataFetching, setDataFetching] = useState(true);
   const [data, setData] = useState({
@@ -173,102 +173,102 @@ const Instagram = (props) => {
         }
       })
       .catch(error => {
+        console.error(error)
         setDataFound(false)
       }
       )
   }, []);
 
-  const returnCategoryData = (val) =>{
+  const returnCategoryData = (val) => {
     console.log(val)
-    if(val){
-      if(val.length > 0){
+    if (val) {
+      if (val.length > 0) {
         const values = val.split(',')
 
-        const _categories = [['🎵','Música'], ['🖌️','Arte'], ['📄','Poesía'], ['👽','Otro']]
+        const _categories = [['🎵', 'Música'], ['🖌️', 'Arte'], ['📄', 'Poesía'], ['👽', 'Otro']]
         const categories = []
         values.forEach(element => categories.push(_categories[parseInt(element, 10)]))
         return categories
       }
     }
-    return [[0,0]]
+    return [[0, 0]]
   }
 
   const [displayModal, setDisplayModal] = useState(false)
 
-  const changeModalState = () =>{
+  const changeModalState = () => {
     setDisplayModal(!displayModal)
   }
 
 
   return (
     <>
-    {displayModal && <InstaQuit changeModalState={changeModalState} />}
-    <Wrapper>
-      <Card content={<>
-        <h2>Lista de Instagrams</h2>
-        <p>En esta lista podés conocer proyectos y seguirlos para que te sigan a vos también.</p>
-        <ButtonContainer>
-          <PrimaryLinkBtn
-            location="/instagram/register"
-            primaryText='¡Me quiero sumar!'
-          /></ButtonContainer>
-      </>} />
+      {displayModal && <InstaQuit changeModalState={changeModalState} />}
+      <Wrapper>
+        <Card content={<>
+          <h2>Lista de Instagrams</h2>
+          <p>En esta lista podés conocer proyectos y seguirlos para que te sigan a vos también.</p>
+          <ButtonContainer>
+            <PrimaryLinkBtn
+              location="/instagram/register"
+              primaryText='¡Me quiero sumar!'
+            /></ButtonContainer>
+        </>} />
 
-      {dataFetching && !dataFound &&
-        <Spinner />
-      }
+        {dataFetching && !dataFound &&
+          <Spinner />
+        }
 
-      {!dataFetching && dataFound && data.featured.username &&
-        <>
-          <Card content={
-            <>
-              <Title>Podrías seguir a <a href={`https://instagram.com/${data.featured.username}`}>@{data.featured.username}</a></Title>
+        {!dataFetching && dataFound && data.featured.username &&
+          <>
+            <Card content={
+              <>
+                <Title>Podrías seguir a <a href={`https://instagram.com/${data.featured.username}`}>@{data.featured.username}</a></Title>
                 <HighlightCard>
-                <div>
-                  <ImageContainer>
-                  <img src={
-                    data.featured.image ?`data:image/jpeg;base64, ${data.featured.image}` : missingImage} alt={data.featured.username} />
-                  </ImageContainer>
-                  <Description>
-                    <strong>{data.featured.fullname}</strong>
-                    <pre>{data.featured.description}</pre>
-                    <a href={data.featured.url}>{truncateString(data.featured.url,30)}</a>
-                  </Description>
-                </div>
-                <BadgeContainer>
-                {returnCategoryData(data.featured.category).map((el, i) =>
-                  { return <Badge key={i} colorIndex={i}>{`${el[0]} ${el[1]}`}</Badge> })}
-                </BadgeContainer>
-              </HighlightCard>
-            </>} />
+                  <div>
+                    <ImageContainer>
+                      <img src={
+                        data.featured.image ? `data:image/jpeg;base64, ${data.featured.image}` : missingImage} alt={data.featured.username} />
+                    </ImageContainer>
+                    <Description>
+                      <strong>{data.featured.fullname}</strong>
+                      <pre>{data.featured.description}</pre>
+                      <a href={data.featured.url}>{truncateString(data.featured.url, 30)}</a>
+                    </Description>
+                  </div>
+                  <BadgeContainer>
+                    {returnCategoryData(data.featured.category).map((el, i) => { return <Badge key={i} colorIndex={i}>{`${el[0]} ${el[1]}`}</Badge> })}
+                  </BadgeContainer>
+                </HighlightCard>
+              </>} />
 
             <SlotHolder>
               <h3>{data.list.length + 1} anotadxs</h3>
-            {data.list.map(element =>{
-              return(
-                <Slot key={element.username}>
+              {data.list.map(element => {
+                return (
+                  <Slot key={element.username}>
 
                     <a href={`https://instagram.com/${element.username}`}>@{element.username}</a>
                     <div>
-                    {returnCategoryData(element.category).map(cat => {
-                        return(
+                      {returnCategoryData(element.category).map(cat => {
+                        return (
                           <span key={cat}>{cat[0]}</span>
                         )
-                    })
-                    }
+                      })
+                      }
                     </div>
-                </Slot>
-              )
-            })}
-          </SlotHolder>
-          <ButtonOutline onClick={() => changeModalState()}>Quiero salir de la lista</ButtonOutline>
-        </>
-      }
+                  </Slot>
+                )
+              })}
+            </SlotHolder>
+            <ButtonOutline onClick={() => changeModalState()}>Quiero salir de la lista</ButtonOutline>
+          </>
+        }
 
-      {!dataFetching && !dataFound &&
-        <>Explotó todo a la mierda...</>
-      }
-    </Wrapper>
+        {!dataFetching && !dataFound &&
+          <>Explotó todo a la mierda...</>
+        }
+      </Wrapper>
     </>
   )
 }

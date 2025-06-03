@@ -12,7 +12,7 @@ import { getHex } from '../helpers/colors'
 //Context
 import { CalendarContext } from '../CalendarContext'
 // API
-const { getDate } = require('../components/handlers/api');
+import { getDate } from '../components/handlers/api';
 
 const Wrapper = styled.div`
 background: var(--card-background);
@@ -70,7 +70,7 @@ const Day = (props) => {
     contents: {}
   })
 
-  const handleTime = (slot, title, content,user) => {
+  const handleTime = (slot, title, content, user) => {
     setValue({
       selectedDay: date,
       niceDay: getFormattedDate(date),
@@ -78,12 +78,12 @@ const Day = (props) => {
       user: user
     });
     //Check if date is older than today && open modal
-    if(!checkIfDateIsBeforeToday(date)){
-      if(content === '0')
-      props.triggerModal('Ehm...', '7');
+    if (!checkIfDateIsBeforeToday(date)) {
+      if (content === '0')
+        props.triggerModal('Ehm...', '7');
       else
-      props.triggerModal(title, content);
-    }else{
+        props.triggerModal(title, content);
+    } else {
       props.triggerModal(title, content);
     }
   }
@@ -104,6 +104,7 @@ const Day = (props) => {
         }
       })
       .catch(error => {
+        console.error(error)
         setDayFound(false)
       }
       )
@@ -113,8 +114,8 @@ const Day = (props) => {
     return day.contents ? checkIfMultipleUsers(day.contents[hour]) : null
   }
 
-  const checkIfMultipleUsers = (val) =>{
-    if(val !== undefined){
+  const checkIfMultipleUsers = (val) => {
+    if (val !== undefined) {
       const users = val.split('%');
       return users.length > 1 ? users.join(", @") : val;
     }

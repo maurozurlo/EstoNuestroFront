@@ -91,7 +91,7 @@ margin-top: 8px;
   grid-template-columns: 1fr 1fr;
 `
 
-const Register = (props) => {
+const Register = () => {
     const [payload, setPayload] = useState({
         username: "",
         image: null,
@@ -111,46 +111,46 @@ const Register = (props) => {
     //Input
     const handleUserInput = (e) => {
         const _user = e.target.value.replace(/[^a-zA-Z0-9-_.%]/g, "")
-        setPayload({...payload,username:_user})
+        setPayload({ ...payload, username: _user })
 
     }
 
-    const handleFileInput = (e) =>{
+    const handleFileInput = (e) => {
         const file = e.target.files[0];
         setImageSrc(URL.createObjectURL(file))
         console.log(file)
-        setPayload({...payload,image:file})
+        setPayload({ ...payload, image: file })
     }
 
-    const categories = ['Música','Arte','Poesía','Otro'];
-    const handleCategoryInput = (e) =>{
+    const categories = ['Música', 'Arte', 'Poesía', 'Otro'];
+    const handleCategoryInput = (e) => {
         const cat = e.target.id;
 
         const selectedCategories = payload.category
         const i = selectedCategories.indexOf(cat);
-        if(i === -1){
+        if (i === -1) {
             selectedCategories.push(cat);
-        }else{
+        } else {
             selectedCategories.splice(i, 1);
         }
-        setPayload({...payload,category:selectedCategories})
+        setPayload({ ...payload, category: selectedCategories })
     }
 
-    const [imageSrc,setImageSrc] = useState('data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=')
+    const [imageSrc, setImageSrc] = useState('data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=')
 
-    const displayModal = () =>{
-        if(checkUsernameLength()){
+    const displayModal = () => {
+        if (checkUsernameLength()) {
             setModal(true)
         }
     }
 
     return (
         <Wrapper>
-            {modal && <InstaRegister payload={payload}/>}
+            {modal && <InstaRegister payload={payload} />}
             <Card content={<>
                 <h3>Sumarte a la lista</h3>
                 <p>Al sumarte, vas a aparecer en la lista durante dos semanas desde tu inscripción.<br></br>
-                Finalizado ese plazo podés volver a anotarte todas las veces que quieras.</p>
+                    Finalizado ese plazo podés volver a anotarte todas las veces que quieras.</p>
                 <h4>Tu usuario de instagram, sin @</h4>
                 <Input
                     type="text"
@@ -171,18 +171,18 @@ const Register = (props) => {
                 <h4>Categorías</h4>
                 <p>Elegí las que más representan tu perfil:</p>
                 <CheckBoxContainer>
-                {categories.map((element,i) => {
-                    return (
-                        <label key={element} className="checkcontainer" onChange={handleCategoryInput} >{element}
-                        <input type="checkbox" id={i}></input>
-                        <span className="checkmark"></span>
-                      </label>
-                    )
-                })}
+                    {categories.map((element, i) => {
+                        return (
+                            <label key={element} className="checkcontainer" onChange={handleCategoryInput} >{element}
+                                <input type="checkbox" id={i}></input>
+                                <span className="checkmark"></span>
+                            </label>
+                        )
+                    })}
                 </CheckBoxContainer>
                 <PrimaryButton
-                primaryText="Sumarme"
-                action={displayModal}
+                    primaryText="Sumarme"
+                    action={displayModal}
                 />
             </>} />
         </Wrapper>

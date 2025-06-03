@@ -17,21 +17,21 @@ const Wrapper = styled.ul`
   border-radius: 5px 5px 0 0;
 `
 
-const Navigation = (props) => {
+const Navigation = () => {
   return (
     <Wrapper>
-          <Tab
-          link={`/dia`}
-          icon={<Calendar />}
-          label='Calendario' />
-          <Tab
-          link={'/info'}
-          icon={<Info />}
-          label='Información'  />
-          <Tab
-          link={'/instagram'}
-          icon={<Instagram />}
-          label='Te seguimos!'  />
+      <Tab
+        link={`/dia`}
+        icon={<Calendar />}
+        label='Calendario' />
+      <Tab
+        link={'/info'}
+        icon={<Info />}
+        label='Información' />
+      <Tab
+        link={'/instagram'}
+        icon={<Instagram />}
+        label='Te seguimos!' />
     </Wrapper>
   )
 }

@@ -7,7 +7,7 @@ import ButtonContainer from './ButtonContainer'
 //Context
 import { CalendarContext } from '../../CalendarContext'
 // API
-const { removeUser } = require('../handlers/api');
+import { removeUser } from '../handlers/api'
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const DeleteSlot1 = (props) => {
     }
   }, [message, value.pin, value.selectedDay, value.selectedTime, pinFound]);
 
-  const reloadPage = () =>{
+  const reloadPage = () => {
     window.location.reload();
   }
 
@@ -85,11 +85,11 @@ const DeleteSlot1 = (props) => {
         <>
           <ErrorMsg>{message}</ErrorMsg>
           <ButtonContainer
-        action={props.close}
-        primaryText="Aceptar"
-        close={() => props.action(['Tranqui!', 6])}
-        secondaryText="Me olvidé mi pin"
-      />
+            action={props.close}
+            primaryText="Aceptar"
+            close={() => props.action(['Tranqui!', 6])}
+            secondaryText="Me olvidé mi pin"
+          />
         </>
       }
     </Wrapper>
